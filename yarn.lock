@@ -1449,6 +1449,20 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@ng-icons/core@^19.0.0":
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-icons/core/-/core-19.0.0.tgz#8e2948de5952db7a233a861ce723d2a8f6aed4fe"
+  integrity sha512-4HmHMNAXweS7Qy+mOnWYuHidOA4lM6jgxUG1f2CCqAU8Ocz4MU7+YWKc6vLLB2CTNeaAIPn6/ZeQ3CB94ZFXog==
+  dependencies:
+    tslib "^2.2.0"
+
+"@ng-icons/material-icons@^19.0.0":
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-icons/material-icons/-/material-icons-19.0.0.tgz#3aa8e88dd65bd180c12d37b0509d82b9d797fc9c"
+  integrity sha512-aohKbcami+Mrl2kv/uE94JZ6he4RoRjX+dRHAS85nyJVMDRINVixuG5Rgc01hQoTObs3S3mDpDCGwPl4/N+Q3A==
+  dependencies:
+    tslib "^2.2.0"
+
 "@ngtools/webpack@14.1.2":
   version "14.1.2"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-14.1.2.tgz#f98849fb530ced41d32e52cd7fa53bd5a46ccea6"
@@ -7170,7 +7184,7 @@ tsconfig-paths@^3.14.1, tsconfig-paths@^3.9.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@2.4.0, tslib@^2.1.0, tslib@^2.3.0:
+tslib@2.4.0, tslib@^2.1.0, tslib@^2.2.0, tslib@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
