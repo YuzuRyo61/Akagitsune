@@ -4,10 +4,10 @@
     "beforeBuildCommand": "yarn build",
     "beforeDevCommand": "yarn start",
     "devPath": "http://localhost:4200",
-    "distDir": "../dist/kongitsune"
+    "distDir": "../dist/akagitsune"
   },
   "package": {
-    "productName": "Kongitsune",
+    "productName": "Akagitsune",
     "version": "0.1.0"
   },
   "tauri": {
@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "work.yuzulia.ti.kongitsune",
+      "identifier": "work.yuzulia.ti.akagitsune",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -39,7 +39,7 @@
         "signingIdentity": null
       },
       "resources": [],
-      "shortDescription": "Kongitsune is a SNS client for Misskey and Mastodon",
+      "shortDescription": "Akagitsune is a SNS client for Misskey and Mastodon",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,
@@ -58,7 +58,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "Kongitsune",
+        "title": "Akagitsune",
         "width": 800
       }
     ]

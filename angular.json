@@ -9,7 +9,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "Kongitsune": {
+    "Akagitsune": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/kongitsune",
+            "outputPath": "dist/akagitsune",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Kongitsune:build:production"
+              "browserTarget": "Akagitsune:build:production"
             },
             "development": {
-              "browserTarget": "Kongitsune:build:development"
+              "browserTarget": "Akagitsune:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Kongitsune:build"
+            "browserTarget": "Akagitsune:build"
           }
         },
         "test": {
