@@ -2,3 +2,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.main-nav {
+  @apply w-14 h-screen bg-orange-400 fixed left-0 top-0 shadow-black shadow-md p-2;
+}
+
+.main {
+  @apply h-screen min-w-max bg-gray-50 pl-16 flex flex-row gap-x-2 pr-2 py-2;
+}
+
+.main-col {
+  @apply w-80 bg-white rounded-md shadow-md shadow-gray-400;
+}
