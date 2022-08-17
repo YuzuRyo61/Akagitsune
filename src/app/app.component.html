@@ -1,65 +1,77 @@
-<div class="ak-navigation">
-    <div class="ak-navigation-menu">
-        <button class="btn btn-accent" (click)="composeDrawer = !composeDrawer">
-            <ng-icon name="mat-edit" class="text-xl"></ng-icon>
-        </button>
-        <div class="divider"></div>
-        <button class="btn btn-ghost" title="Home">
-            <ng-icon name="mat-home" class="text-xl"></ng-icon>
-        </button>
-        <button class="btn btn-ghost">
-            <ng-icon name="mat-home" class="text-xl"></ng-icon>
-        </button>
-        <button class="btn btn-ghost">
-            <ng-icon name="mat-home" class="text-xl"></ng-icon>
-        </button>
-        <button class="btn btn-ghost">
-            <ng-icon name="mat-home" class="text-xl"></ng-icon>
-        </button>
-        <button class="btn btn-ghost">
-            <ng-icon name="mat-home" class="text-xl"></ng-icon>
-        </button>
-        <div class="flex-grow"></div>
-        <div class="flex flex-col gap-1">
+<div data-theme="dark">
+    <div class="ak-navigation">
+        <div class="ak-navigation-menu">
+            <button class="btn btn-accent" (click)="composeDrawer = !composeDrawer">
+                <ng-icon name="mat-edit" class="text-xl"></ng-icon>
+            </button>
             <div class="divider"></div>
-            <button class="btn btn-secondary">
-                <ng-icon name="mat-plus" class="text-xl"></ng-icon>
+            <button class="btn btn-ghost" title="Home">
+                <ng-icon name="mat-home" class="text-xl"></ng-icon>
             </button>
             <button class="btn btn-ghost">
-                <ng-icon name="mat-manage-accounts" class="text-xl"></ng-icon>
+                <ng-icon name="mat-home" class="text-xl"></ng-icon>
             </button>
             <button class="btn btn-ghost">
-                <ng-icon name="mat-settings" class="text-xl"></ng-icon>
+                <ng-icon name="mat-home" class="text-xl"></ng-icon>
             </button>
             <button class="btn btn-ghost">
-                <ng-icon name="mat-help" class="text-xl"></ng-icon>
+                <ng-icon name="mat-home" class="text-xl"></ng-icon>
             </button>
+            <button class="btn btn-ghost">
+                <ng-icon name="mat-home" class="text-xl"></ng-icon>
+            </button>
+            <div class="flex-grow"></div>
+            <div class="flex flex-col gap-1">
+                <div class="divider"></div>
+                <button class="btn btn-secondary">
+                    <ng-icon name="mat-plus" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost">
+                    <ng-icon name="mat-manage-accounts" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost">
+                    <ng-icon name="mat-settings" class="text-xl"></ng-icon>
+                </button>
+                <label for="modal" class="btn btn-ghost">
+                    <ng-icon name="mat-help" class="text-xl"></ng-icon>
+                </label>
+            </div>
+        </div>
+
+        <div class="ak-navigation-compose" [hidden]="!composeDrawer">
+            <h1 class="text-2xl font-extrabold select-none">Compose</h1>
+            <div class="divider"></div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Status</span>
+                </label>
+                <textarea class="textarea textarea-bordered h-24" placeholder="What happened?"></textarea>
+                <label class="label">
+                    <span class="label-text-alt"></span>
+                    <span class="label-text-alt">500</span>
+                </label>
+            </div>
+            <div class="flex">
+                <div class="flex-1"></div>
+                <button class="btn btn-sm btn-secondary">
+                    Post!
+                </button>
+            </div>
         </div>
     </div>
 
-    <div class="ak-navigation-compose" [hidden]="!composeDrawer">
-        <h1 class="text-2xl font-extrabold select-none">Compose</h1>
-        <div class="divider"></div>
-        <div class="form-control">
-            <label class="label">
-                <span class="label-text">Status</span>
-            </label>
-            <textarea class="textarea textarea-bordered h-24" placeholder="What happened?"></textarea>
-            <label class="label">
-                <span class="label-text-alt"></span>
-                <span class="label-text-alt">500</span>
-            </label>
-        </div>
-        <div class="flex">
-            <div class="flex-1"></div>
-            <button class="btn btn-sm btn-secondary">
-                Post!
-            </button>
+    <div class="main">
+        <app-main-column></app-main-column>
+        <app-main-column></app-main-column>
+    </div>
+
+    <!-- About modal -->
+    <input type="checkbox" id="modal" class="modal-toggle" />
+    <div class="modal">
+        <div class="modal-box relative w-11/12 max-w-3xl">
+            <label for="modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+            <h3 class="text-lg font-bold">About</h3>
+            <p>Version etc...</p>
         </div>
     </div>
-</div>
-
-<div class="main">
-    <app-main-column></app-main-column>
-    <app-main-column></app-main-column>
 </div>
