@@ -11,8 +11,10 @@ import {
   MatManageAccounts,
   MatSettings,
   MatHelp,
+  MatPlus,
 } from '@ng-icons/material-icons/baseline';
 import { MainColumnComponent } from './components/main-column/main-column.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { MainColumnComponent } from './components/main-column/main-column.compon
       MatManageAccounts,
       MatSettings,
       MatHelp,
+      MatPlus,
     }),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

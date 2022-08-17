@@ -3,78 +3,94 @@
 @tailwind components;
 @tailwind utilities;
 
-.main-nav {
-  @apply h-screen bg-orange-400 fixed left-0 top-0 shadow-black shadow-md px-2 z-10 overflow-y-auto scroll-my-3 inline-flex;
+.ak-navigation {
+  @apply h-screen fixed left-0 top-0 shadow-black shadow-md px-2 z-10 bg-primary text-primary-content inline-flex;
 
-  .compose-drawer {
-    @apply ml-2 w-64 py-2 overflow-y-auto;
-
-    .compose-title {
-      @apply text-white font-extrabold font-sans text-2xl select-none;
-    }
-
-    textarea {
-      @apply mt-0 block w-full px-1 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black rounded-md;
-    }
-
-    .compose-drawer-footer {
-      @apply flex flex-row my-2 select-none;
-    }
-  }
-}
-
-.main-nav nav {
-  @apply w-12 flex flex-col justify-center text-center h-full py-2;
-
-  .compose-button {
-    @apply h-10 w-10 bg-white rounded-md hover:shadow-sm active:shadow-inner active:shadow-black hover:shadow-black transition-shadow focus:ring focus:ring-black focus:outline-none focus:ring-opacity-70;
+  .ak-navigation-menu {
+    @apply overflow-y-auto flex flex-col h-full py-2 gap-1;
   }
 
-  .nav-button {
-    @apply rounded-md h-10 w-10 focus:ring focus:ring-white focus:outline-none active:shadow-inner active:shadow-black my-1;
-
-    .icon {
-      @apply text-3xl text-white;
-    }
+  .ak-navigation-compose {
+    @apply ml-4 py-2 w-72;
   }
 }
 
 .main {
-  @apply h-screen min-w-max bg-gray-50 pl-[4.5rem] flex flex-row gap-x-2 pr-2 py-2;
+  @apply pl-20 flex flex-row gap-2 py-2 h-screen;
 }
 
-.main-column {
-  @apply w-80 bg-white rounded-md shadow-md shadow-gray-400 h-full focus:ring focus:ring-orange-400 focus:outline-none;
-
-  .column-header {
-    @apply p-2 bg-gray-200 rounded-t-md border-b border-gray-300 select-none;
-
-    .header-title {
-      @apply flex flex-row items-center;
-
-      .image {
-        @apply relative inline-block;
-      }
-
-      img {
-        @apply w-12 h-12 rounded-full;
-      }
-
-      .icon {
-        @apply text-lg rounded-full bg-gray-200 absolute bottom-0 right-0;
-      }
-
-      .title {
-        @apply flex-grow mx-2;
-
-        h3 {
-          @apply text-lg font-bold font-sans;
-        }
-
-        span {
-          @apply text-xs font-mono font-light;
-        }
-      }
-    }
-  }
-}
+//.main-nav {
+//  @apply h-screen bg-orange-400 fixed left-0 top-0 shadow-black shadow-md px-2 z-10 overflow-y-auto scroll-my-3 inline-flex;
+//
+//  .compose-drawer {
+//    @apply ml-2 w-64 py-2 overflow-y-auto;
+//
+//    .compose-title {
+//      @apply text-white font-extrabold font-sans text-2xl select-none;
+//    }
+//
+//    textarea {
+//      @apply mt-0 block w-full px-1 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black rounded-md;
+//    }
+//
+//    .compose-drawer-footer {
+//      @apply flex flex-row my-2 select-none;
+//    }
+//  }
+//}
+//
+//.main-nav nav {
+//  @apply w-12 flex flex-col justify-center text-center h-full py-2;
+//
+//  .compose-button {
+//    @apply h-10 w-10 bg-white rounded-md hover:shadow-sm active:shadow-inner active:shadow-black hover:shadow-black transition-shadow focus:ring focus:ring-black focus:outline-none focus:ring-opacity-70;
+//  }
+//
+//  .nav-button {
+//    @apply rounded-md h-10 w-10 focus:ring focus:ring-white focus:outline-none active:shadow-inner active:shadow-black my-1;
+//
+//    .icon {
+//      @apply text-3xl text-white;
+//    }
+//  }
+//}
+//
+//.main {
+//  @apply h-screen min-w-max bg-gray-50 pl-[4.5rem] flex flex-row gap-x-2 pr-2 py-2;
+//}
+//
+//.main-column {
+//  @apply w-80 bg-white rounded-md shadow-md shadow-gray-400 h-full focus:ring focus:ring-orange-400 focus:outline-none;
+//
+//  .column-header {
+//    @apply p-2 bg-gray-200 rounded-t-md border-b border-gray-300 select-none;
+//
+//    .header-title {
+//      @apply flex flex-row items-center;
+//
+//      .image {
+//        @apply relative inline-block;
+//      }
+//
+//      img {
+//        @apply w-12 h-12 rounded-full;
+//      }
+//
+//      .icon {
+//        @apply text-lg rounded-full bg-gray-200 absolute bottom-0 right-0;
+//      }
+//
+//      .title {
+//        @apply flex-grow mx-2;
+//
+//        h3 {
+//          @apply text-lg font-bold font-sans;
+//        }
+//
+//        span {
+//          @apply text-xs font-mono font-light;
+//        }
+//      }
+//    }
+//  }
+//}

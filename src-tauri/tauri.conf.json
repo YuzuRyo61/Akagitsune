@@ -58,8 +58,6 @@
         "fullscreen": false,
         "height": 600,
         "width": 800,
-        "minHeight": 360,
-        "minWidth": 400,
         "resizable": true,
         "title": "Akagitsune"
       }
