@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "work.yuzulia.ti.akagitsune",
+      "identifier": "work.yuzulia.akagitsune",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -57,9 +57,11 @@
       {
         "fullscreen": false,
         "height": 600,
+        "width": 800,
+        "minHeight": 360,
+        "minWidth": 400,
         "resizable": true,
-        "title": "Akagitsune",
-        "width": 800
+        "title": "Akagitsune"
       }
     ]
   }

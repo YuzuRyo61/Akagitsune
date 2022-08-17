@@ -1,0 +1,27 @@
+<div class="main-column" tabindex="2">
+    <div class="column-header">
+        <div class="header-title">
+            <div class="image">
+                <img src="https://placeimg.com/128/128/people" alt="acct">
+                <ng-icon name="mat-home" class="icon"></ng-icon>
+            </div>
+            <div class="title">
+                <h3>Home</h3>
+                <span>@example@example.com</span>
+            </div>
+            <button
+                    class="px-2 py-1 transition-all active:shadow-inner active:shadow-gray-600 rounded-md"
+                    type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseSettings-' + collapseId"
+                    aria-expanded="false" [attr.aria-controls]="'collapseSettings-' + collapseId" tabindex="-1">
+                <ng-icon name="mat-menu" class="text-2xl pt-1"></ng-icon>
+            </button>
+        </div>
+        <div class="collapse" [id]="'collapseSettings-' + collapseId">
+            <div class="mt-2">
+                Settings
+            </div>
+        </div>
+    </div>
+    <div class="overflow-y-auto">
+    </div>
+</div>

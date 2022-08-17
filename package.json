@@ -9,6 +9,7 @@
     "test": "ng test",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
     "lint": "ng lint"
   },
   "private": true,
@@ -23,9 +24,13 @@
     "@angular/router": "^14.1.0",
     "@ng-icons/core": "^19.0.0",
     "@ng-icons/material-icons": "^19.0.0",
+    "@tailwindcss/forms": "^0.5.2",
     "@tauri-apps/api": "^1.0.2",
+    "@types/uuid": "^8.3.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "tw-elements": "^1.0.0-alpha12",
+    "uuid": "^8.3.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

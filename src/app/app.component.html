@@ -1,27 +1,57 @@
 <div class="main-nav">
-    <div class="main-nav-container">
-        <p>aaa</p>
-        <p>aaa</p>
-        <p>aaa</p>
+    <nav>
+        <div>
+            <button class="compose-button" tabindex="1" (click)="composeDrawer = !composeDrawer">
+                <ng-icon name="mat-edit" class="text-3xl"></ng-icon>
+            </button>
+            <hr class="my-2">
+        </div>
+        <div class="flex-grow overflow-y-auto">
+            <button class="nav-button" tabindex="1">
+                <ng-icon name="mat-home" class="icon"></ng-icon>
+            </button>
+            <button class="nav-button" tabindex="1">
+                <ng-icon name="mat-home" class="icon"></ng-icon>
+            </button>
+            <button class="nav-button" tabindex="1">
+                <ng-icon name="mat-home" class="icon"></ng-icon>
+            </button>
+            <button class="nav-button" tabindex="1">
+                <ng-icon name="mat-home" class="icon"></ng-icon>
+            </button>
+            <button class="nav-button" tabindex="1">
+                <ng-icon name="mat-home" class="icon"></ng-icon>
+            </button>
+            <button class="nav-button" tabindex="1">
+                <ng-icon name="mat-home" class="icon"></ng-icon>
+            </button>
+        </div>
+        <div>
+            <hr class="my-2">
+            <button class="nav-button" tabindex="1">
+                <ng-icon name="mat-manage-accounts" class="icon"></ng-icon>
+            </button>
+            <button class="nav-button" tabindex="1">
+                <ng-icon name="mat-settings" class="icon"></ng-icon>
+            </button>
+            <button class="nav-button" tabindex="1">
+                <ng-icon name="mat-help" class="icon"></ng-icon>
+            </button>
+        </div>
+    </nav>
+    <div class="compose-drawer" [hidden]="!composeDrawer">
+        <h1 class="compose-title">Compose</h1>
+        <hr class="my-2 select-none">
+        <textarea tabindex="1"></textarea>
+        <div class="compose-drawer-footer">
+            <div class="flex-grow text-white font-bold">500</div>
+            <button class="text-white">
+                Post!
+            </button>
+        </div>
     </div>
 </div>
 <div class="main">
-    <div class="main-column">
-        <div class="column-header">
-            <div class="image">
-                <img src="https://placeimg.com/128/128/people" alt="acct">
-                <ng-icon name="mat-home" class="icon"></ng-icon>
-            </div>
-            <div class="title-section">
-                <div class="title">Home</div>
-                <div class="acct">@example@example.com</div>
-            </div>
-            <button class="p-2">
-                <ng-icon name="mat-menu" class="text-2xl pt-1"></ng-icon>
-            </button>
-        </div>
-        <div class="scroll-auto">
-
-        </div>
-    </div>
+    <app-main-column></app-main-column>
+    <app-main-column></app-main-column>
 </div>

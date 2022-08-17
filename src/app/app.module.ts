@@ -7,11 +7,17 @@ import { NgIconsModule } from '@ng-icons/core';
 import {
   MatHome,
   MatMenu,
+  MatEdit,
+  MatManageAccounts,
+  MatSettings,
+  MatHelp,
 } from '@ng-icons/material-icons/baseline';
+import { MainColumnComponent } from './components/main-column/main-column.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainColumnComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,6 +25,10 @@ import {
     NgIconsModule.withIcons({
       MatHome,
       MatMenu,
+      MatEdit,
+      MatManageAccounts,
+      MatSettings,
+      MatHelp,
     }),
   ],
   providers: [],
