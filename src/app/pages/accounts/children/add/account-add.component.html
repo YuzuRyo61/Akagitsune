@@ -35,7 +35,7 @@
                     placeholder="example.com"
                     class="input input-bordered mx-2"
                     [(ngModel)]="instanceAddress"
-                    (keydown.enter)="instanceAddress.trim() !== '' ? stepper.next() : null"
+                    (keydown.control.enter)="instanceAddress.trim() !== '' ? stepper.next() : null"
                     required
                     autofocus
             />
