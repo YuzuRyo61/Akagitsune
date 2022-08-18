@@ -5,36 +5,49 @@
                 <ng-icon name="mat-edit" class="text-xl"></ng-icon>
             </button>
             <div class="divider"></div>
-            <button class="btn btn-ghost" title="Home">
-                <ng-icon name="mat-home" class="text-xl"></ng-icon>
-            </button>
-            <button class="btn btn-ghost">
-                <ng-icon name="mat-home" class="text-xl"></ng-icon>
-            </button>
-            <button class="btn btn-ghost">
-                <ng-icon name="mat-home" class="text-xl"></ng-icon>
-            </button>
-            <button class="btn btn-ghost">
-                <ng-icon name="mat-home" class="text-xl"></ng-icon>
-            </button>
-            <button class="btn btn-ghost">
-                <ng-icon name="mat-home" class="text-xl"></ng-icon>
-            </button>
-            <div class="flex-grow"></div>
+            <div class="flex-1 flex flex-col gap-y-1">
+                <button class="btn btn-ghost" title="Home">
+                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost" title="Home">
+                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost" title="Home">
+                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost" title="Home">
+                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost" title="Home">
+                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost" title="Home">
+                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost" title="Home">
+                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost" title="Home">
+                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                </button>
+                <button class="btn btn-ghost" title="Home">
+                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                </button>
+            </div>
             <div class="flex flex-col gap-1">
                 <div class="divider"></div>
                 <button class="btn btn-secondary">
                     <ng-icon name="mat-plus" class="text-xl"></ng-icon>
                 </button>
-                <button class="btn btn-ghost">
+                <button class="btn btn-ghost" routerLink="/accounts">
                     <ng-icon name="mat-manage-accounts" class="text-xl"></ng-icon>
                 </button>
-                <button class="btn btn-ghost">
+                <button class="btn btn-ghost" routerLink="/settings">
                     <ng-icon name="mat-settings" class="text-xl"></ng-icon>
                 </button>
-                <label for="modal" class="btn btn-ghost">
+                <button class="btn btn-ghost" routerLink="/about">
                     <ng-icon name="mat-help" class="text-xl"></ng-icon>
-                </label>
+                </button>
             </div>
         </div>
 
@@ -65,13 +78,12 @@
         <app-main-column></app-main-column>
     </div>
 
-    <!-- About modal -->
-    <input type="checkbox" id="modal" class="modal-toggle" />
+    <!-- Page modal -->
+    <input type="checkbox" id="modal" class="modal-toggle" [ngModel]="router.url !== '/'" />
     <div class="modal">
         <div class="modal-box relative w-11/12 max-w-3xl">
-            <label for="modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-            <h3 class="text-lg font-bold">About</h3>
-            <p>Version etc...</p>
+            <button class="btn btn-sm btn-circle absolute right-2 top-2" routerLink="/" tabindex="3">✕</button>
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>
