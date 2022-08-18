@@ -1,1 +1,20 @@
-<p>settings works!</p>
+<div class="flex flex-col w-full md:flex-row">
+    <ul class="menu w-full md:w-64 p-2 rounded-box flex overflow-x-hidden overflow-y-auto h-auto md:h-96">
+        <li>
+            <button routerLink="general" routerLinkActive="active">
+                <ng-icon name="mat-settings" class="text-xl"></ng-icon>
+                General
+            </button>
+        </li>
+        <li>
+            <button routerLink="theme" routerLinkActive="active">
+                <ng-icon name="mat-brush" class="text-xl"></ng-icon>
+                Theme
+            </button>
+        </li>
+    </ul>
+    <div class="divider md:divider-horizontal"></div>
+    <div class="overflow-x-hidden overflow-y-auto h-min w-full">
+        <router-outlet></router-outlet>
+    </div>
+</div>

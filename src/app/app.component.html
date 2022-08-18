@@ -1,4 +1,4 @@
-<div data-theme="dark">
+<div [attr.data-theme]="ts.currentTheme">
     <div class="ak-navigation">
         <div class="ak-navigation-menu">
             <button class="btn btn-accent" (click)="composeDrawer = !composeDrawer">
@@ -81,8 +81,9 @@
     <!-- Page modal -->
     <input type="checkbox" id="modal" class="modal-toggle" [ngModel]="router.url !== '/'" />
     <div class="modal">
-        <div class="modal-box relative w-11/12 max-w-3xl">
-            <button class="btn btn-sm btn-circle absolute right-2 top-2" routerLink="/" tabindex="3">✕</button>
+        <button class="btn btn-secondary btn-circle absolute right-2 top-2 inset-x-auto inset-y-0 z-10" routerLink="/" tabindex="3">✕</button>
+
+        <div class="modal-box w-11/12 max-w-5xl">
             <router-outlet></router-outlet>
         </div>
     </div>

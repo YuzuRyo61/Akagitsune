@@ -1,0 +1,8 @@
+<div class="form-control w-full p-2">
+    <label class="label">
+        <span class="label-text">Theme</span>
+    </label>
+    <select class="select select-bordered" [(ngModel)]="ts.currentTheme">
+        <option *ngFor="let theme of themeList" [value]="theme.id">{{ theme.name }}</option>
+    </select>
+</div>
