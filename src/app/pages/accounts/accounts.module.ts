@@ -8,6 +8,8 @@ import {
   MatAccountCircle,
   MatPlus,
   MatToken,
+  MatError,
+  MatInfo,
 } from '@ng-icons/material-icons/baseline';
 import { AccountListComponent } from './children/list/list.component';
 import { AccountAddComponent } from './children/add/account-add.component';
@@ -55,6 +57,8 @@ import { FormsModule } from '@angular/forms';
       MatAccountCircle,
       MatPlus,
       MatToken,
+      MatError,
+      MatInfo,
     }),
     StepperModule,
     FormsModule,

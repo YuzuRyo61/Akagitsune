@@ -52,20 +52,36 @@
         <h2 class="text-xl font-bold">Check instance</h2>
         <p>Please check if it is the desired instance.</p>
 
-        <div class="card card-compact bg-base-100 shadow-lg my-4 mx-2">
-            <figure>
-                <img src="https://placeimg.com/400/300/arch" alt="Shoes" class="object-cover h-32 w-full" />
-            </figure>
-            <div class="card-body">
-                <h2 class="card-title">Shoes!</h2>
-                <span class="text-xs font-mono">{{ instanceAddress }}</span>
+        <div *ngIf="instanceFetchLoading" class="alert alert-info shadow-lg my-2">
+            <div>
+                <ng-icon name="mat-info"></ng-icon>
+                <span>Fetching instance information. Wait a moment...</span>
             </div>
         </div>
 
-        <div class="flex flex-col justify-center items-center">
+        <div *ngIf="instanceFetchError" class="alert alert-error shadow-lg my-2">
+            <div>
+                <ng-icon name="mat-error"></ng-icon>
+                <span>Could not fetch instance information.</span>
+            </div>
+        </div>
+
+        <ng-container *ngIf="!instanceFetchLoading && !instanceFetchError && instanceInfo;">
+            <div class="card card-compact bg-base-100 shadow-lg my-4 mx-2">
+                <figure *ngIf="instanceInfo.banner">
+                    <img [src]="instanceInfo.banner" [alt]="instanceInfo.banner" class="object-cover h-32 w-full" />
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title">{{ instanceInfo.name }}</h2>
+                    <span class="text-xs font-mono">{{ instanceAddress }} ({{ instanceType | titlecase }} {{ instanceInfo.version }})</span>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="flex flex-col justify-center items-center mt-2">
             <div class="btn-group">
                 <button class="btn" (click)="stepper.reset()">Start over</button>
-                <button class="btn btn-primary">Authenticate</button>
+                <button class="btn btn-primary" [disabled]="instanceFetchLoading || instanceFetchError">Authenticate</button>
             </div>
         </div>
     </cdk-step>

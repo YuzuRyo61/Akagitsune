@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     if (this.settingsShortcut) this.hks.add(this.settingsShortcut);
     if (this.composeShortcut) this.hks.add(this.composeShortcut);
 
-    this.hks.add(new Hotkey(['ctrl+/', 'ctrl+a'], (_: KeyboardEvent): boolean => false))
+    this.hks.add(new Hotkey(['ctrl+/', 'ctrl+a'], (_: KeyboardEvent): boolean => false));
   }
 
   closeComposeDrawer() {

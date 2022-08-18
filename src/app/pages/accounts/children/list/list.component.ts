@@ -16,6 +16,6 @@ export class AccountListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accounts = this.acs.fetchAccounts()
+    this.accounts = this.acs.fetchAccounts();
   }
 }

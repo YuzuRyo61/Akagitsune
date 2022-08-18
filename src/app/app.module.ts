@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { ThemeService } from './services/theme.service';
 import { AccountService } from './services/account.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AccountService } from './services/account.service';
     HotkeyModule.forRoot({
 
     }),
+    HttpClientModule,
   ],
   providers: [
     ThemeService,
