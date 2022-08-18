@@ -42,5 +42,6 @@ module.exports = {
       'coffee',
       'winter',
     ],
+    logs: false,
   },
 };
