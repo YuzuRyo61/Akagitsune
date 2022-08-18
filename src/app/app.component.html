@@ -58,7 +58,11 @@
                 <label class="label">
                     <span class="label-text text-primary-content">Status</span>
                 </label>
-                <textarea class="textarea textarea-bordered h-24 text-base-content" placeholder="What happened?"></textarea>
+                <textarea
+                        class="textarea textarea-bordered h-24 text-base-content"
+                        placeholder="What happened?"
+                        (keydown.escape)="closeComposeDrawer()"
+                        #composeTextarea></textarea>
                 <label class="label">
                     <span class="label-text-alt"></span>
                     <span class="label-text-alt text-primary-content">500</span>

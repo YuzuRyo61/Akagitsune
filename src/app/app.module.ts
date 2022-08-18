@@ -15,6 +15,7 @@ import {
 } from '@ng-icons/material-icons/baseline';
 import { MainColumnComponent } from './components/main-column/main-column.component';
 import { FormsModule } from '@angular/forms';
+import { HotkeyModule } from 'angular2-hotkeys';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,9 @@ import { FormsModule } from '@angular/forms';
       MatPlus,
     }),
     FormsModule,
+    HotkeyModule.forRoot({
+
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

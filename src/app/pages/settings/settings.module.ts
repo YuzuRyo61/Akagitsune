@@ -10,6 +10,7 @@ import {
 import { GeneralSettingsComponent } from './children/general/general.component';
 import { ThemeSettingsComponent } from './children/theme/theme.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HotkeyModule } from 'angular2-hotkeys';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     }),
     ReactiveFormsModule,
     FormsModule,
+    HotkeyModule,
   ],
 })
 export class SettingsModule { }
