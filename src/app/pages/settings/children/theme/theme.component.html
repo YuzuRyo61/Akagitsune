@@ -6,3 +6,18 @@
         <option *ngFor="let theme of themeList" [value]="theme.id">{{ theme.name }}</option>
     </select>
 </div>
+
+<div class="rounded-box bg-base-200 p-4">
+    <h2 class="text-2xl mb-2">Preview</h2>
+    <div class="flex flex-row gap-2">
+        <div class="badge">neutral</div>
+        <div class="badge badge-primary">primary</div>
+        <div class="badge badge-secondary">secondary</div>
+        <div class="badge badge-accent">accent</div>
+        <div class="badge badge-ghost">ghost</div>
+        <div class="badge badge-info">info</div>
+        <div class="badge badge-success">success</div>
+        <div class="badge badge-warning">warning</div>
+        <div class="badge badge-error">error</div>
+    </div>
+</div>
