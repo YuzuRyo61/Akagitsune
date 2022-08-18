@@ -73,7 +73,7 @@
                 </figure>
                 <div class="card-body">
                     <h2 class="card-title">{{ instanceInfo.name }}</h2>
-                    <span class="text-xs font-mono">{{ instanceAddress }} ({{ instanceType | titlecase }} {{ instanceInfo.version }})</span>
+                    <span class="text-xs font-mono">{{ instanceAddress | lowercase }} ({{ instanceType | titlecase }} {{ instanceInfo.version }})</span>
                 </div>
             </div>
         </ng-container>
