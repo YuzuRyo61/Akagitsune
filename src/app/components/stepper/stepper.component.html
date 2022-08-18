@@ -1,0 +1,13 @@
+<div class="flex flex-col justify-center">
+    <ul class="steps">
+        <li
+            class="step"
+            *ngFor="let step of steps; let i = index;"
+            [class.step-primary]="selectedIndex >= i"
+        >
+            {{ step.label }}
+        </li>
+    </ul>
+</div>
+
+<div [ngTemplateOutlet]="selected ? selected.content : null" class="pt-2"></div>

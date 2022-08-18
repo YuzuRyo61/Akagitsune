@@ -1,0 +1,72 @@
+<app-stepper #stepper>
+    <cdk-step label="Select Type">
+        <h2 class="text-xl font-bold">Select Type</h2>
+        <p>Select a instance type.</p>
+
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Misskey</span>
+                <input type="radio" value="misskey" name="type" class="radio radio-primary checked:radio-primary" [(ngModel)]="instanceType" />
+            </label>
+        </div>
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Mastodon</span>
+                <input type="radio" value="mastodon" name="type" class="radio radio-primary checked:radio-primary" [(ngModel)]="instanceType" />
+            </label>
+        </div>
+
+        <div class="flex flex-col justify-center items-center mt-2">
+            <div class="btn-group">
+                <button class="btn btn-primary" [disabled]="instanceType === undefined" cdkStepperNext>Next</button>
+            </div>
+        </div>
+    </cdk-step>
+    <cdk-step label="Instance Address" (interacted)="checkInstance()">
+        <h2 class="text-xl font-bold">Instance Address</h2>
+        <p>Please input a {{ instanceType | titlecase }} instance address.</p>
+
+        <div class="form-control w-full">
+            <label class="label">
+                <span class="label-text">{{ instanceType | titlecase }} instance address</span>
+            </label>
+            <input
+                    type="text"
+                    placeholder="example.com"
+                    class="input input-bordered mx-2"
+                    [(ngModel)]="instanceAddress"
+                    (keydown.enter)="instanceAddress.trim() !== '' ? stepper.next() : null"
+                    required
+                    autofocus
+            />
+        </div>
+
+        <div class="flex flex-col justify-center items-center mt-2">
+            <div class="btn-group">
+                <button class="btn" (click)="stepper.reset()">Previous</button>
+                <button class="btn btn-primary" [disabled]="instanceAddress.trim() === ''" cdkStepperNext>Next</button>
+            </div>
+        </div>
+    </cdk-step>
+    <cdk-step label="Check instance">
+        <h2 class="text-xl font-bold">Check instance</h2>
+        <p>Please check if it is the desired instance.</p>
+
+        <div class="card card-compact bg-base-100 shadow-lg my-4 mx-2">
+            <figure>
+                <img src="https://placeimg.com/400/300/arch" alt="Shoes" class="object-cover h-32 w-full" />
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">Shoes!</h2>
+                <span class="text-xs font-mono">{{ instanceAddress }}</span>
+            </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center">
+            <div class="btn-group">
+                <button class="btn" (click)="stepper.reset()">Start over</button>
+                <button class="btn btn-primary">Authenticate</button>
+            </div>
+        </div>
+    </cdk-step>
+</app-stepper>

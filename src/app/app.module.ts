@@ -16,6 +16,8 @@ import {
 import { MainColumnComponent } from './components/main-column/main-column.component';
 import { FormsModule } from '@angular/forms';
 import { HotkeyModule } from 'angular2-hotkeys';
+import { ThemeService } from './services/theme.service';
+import { AccountService } from './services/account.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,10 @@ import { HotkeyModule } from 'angular2-hotkeys';
 
     }),
   ],
-  providers: [],
+  providers: [
+    ThemeService,
+    AccountService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
