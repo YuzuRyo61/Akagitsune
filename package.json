@@ -1,6 +1,15 @@
 {
   "name": "akagitsune",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "author": {
+    "name": "YuzuRyo61",
+    "email": "yuzuryo61@yuzulia.work",
+    "url": "https://yuzuryo61.me/"
+  },
+  "repository": {
+    "url": "https://github.com/YuzuRyo61/Akagitsune",
+    "type": "git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

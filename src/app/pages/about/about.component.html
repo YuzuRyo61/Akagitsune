@@ -1,1 +1,20 @@
-<p>about works!</p>
+<div class="flex flex-col w-full md:flex-row">
+    <ul class="menu w-full md:w-64 p-2 rounded-box flex overflow-x-hidden overflow-y-auto h-auto md:h-96 md:sticky md:top-0">
+        <li>
+            <button routerLink="version" routerLinkActive="active">
+                <ng-icon name="mat-info" class="text-xl"></ng-icon>
+                Version
+            </button>
+        </li>
+        <li>
+            <button routerLink="license" routerLinkActive="active">
+                <ng-icon name="mat-verified" class="text-xl"></ng-icon>
+                License
+            </button>
+        </li>
+    </ul>
+    <div class="divider md:divider-horizontal"></div>
+    <div class="h-96 md:h-full overflow-y-auto h-min w-full">
+        <router-outlet></router-outlet>
+    </div>
+</div>
