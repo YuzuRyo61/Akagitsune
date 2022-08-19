@@ -31,4 +31,8 @@ export class VersionComponent implements OnInit {
   get repositoryUrl(): string {
     return packageJson.repository.url;
   }
+
+  get feedbackUrl(): string {
+    return packageJson.bugs.url;
+  }
 }

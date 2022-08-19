@@ -10,6 +10,9 @@
     "url": "https://github.com/YuzuRyo61/Akagitsune",
     "type": "git"
   },
+  "bugs": {
+    "url": "https://github.com/YuzuRyo61/Akagitsune/issues/new/choose"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
