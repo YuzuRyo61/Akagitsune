@@ -5,7 +5,7 @@
 
         <div class="form-control">
             <label class="label cursor-pointer">
-                <span class="label-text">Misskey</span>
+                <span class="label-text">Misskey (MiAuth)</span>
                 <input type="radio" value="misskey" name="type" class="radio radio-primary checked:radio-primary" [(ngModel)]="instanceType" />
             </label>
         </div>
@@ -48,7 +48,7 @@
             </div>
         </div>
     </cdk-step>
-    <cdk-step label="Check instance">
+    <cdk-step label="Check instance" (interacted)="startAuthentication()">
         <h2 class="text-xl font-bold">Check instance</h2>
         <p>Please check if it is the desired instance.</p>
 
@@ -81,7 +81,53 @@
         <div class="flex flex-col justify-center items-center mt-2">
             <div class="btn-group">
                 <button class="btn" (click)="stepper.reset()">Start over</button>
-                <button class="btn btn-primary" [disabled]="instanceFetchLoading || instanceFetchError">Authenticate</button>
+                <button class="btn btn-primary" [disabled]="instanceFetchLoading || instanceFetchError" cdkStepperNext>Next</button>
+            </div>
+        </div>
+    </cdk-step>
+
+    <cdk-step label="Authenticate">
+        <h2 class="text-xl font-bold">Authenticate</h2>
+        <p>An authentication URL will open. Click the URL to copy it to your clipboard.</p>
+
+        <div class="rounded-box bg-base-200 p-4 my-2 break-all" *ngIf="instanceAuthenticationURL !== ''">
+            <p class="select-all font-mono" (click)="copyAuthenticationURL()">{{ instanceAuthenticationURL }}</p>
+        </div>
+
+        <div *ngIf="authorizeError" class="alert alert-error shadow-lg my-2">
+            <div>
+                <ng-icon name="mat-error"></ng-icon>
+                <span>Could not authorized. Please try again.</span>
+            </div>
+        </div>
+
+        <div class="form-control w-full" *ngIf="instanceType === 'mastodon'">
+            <label class="label">
+                <span class="label-text">Authorize code</span>
+            </label>
+            <input
+                    type="text"
+                    class="input input-bordered mx-2"
+                    [(ngModel)]="authorizeCode"
+                    required
+                    autofocus
+            />
+        </div>
+
+        <div class="flex flex-col justify-center items-center mt-2">
+            <div class="btn-group">
+                <button class="btn btn-primary" (click)="authorizeStep()" [disabled]="authorizeLoading || instanceType === 'mastodon' && authorizeCode === ''">Authenticate</button>
+            </div>
+        </div>
+    </cdk-step>
+
+    <cdk-step label="Complete">
+        <h2 class="text-xl font-bold">Complete</h2>
+        <p>Authentication complete!</p>
+
+        <div class="flex flex-col justify-center items-center mt-2">
+            <div class="btn-group">
+                <button class="btn btn-secondary" (click)="resetStep()">Add another account</button>
             </div>
         </div>
     </cdk-step>
