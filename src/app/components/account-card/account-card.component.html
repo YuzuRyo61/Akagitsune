@@ -5,17 +5,17 @@
     <div class="card-body">
         <div class="avatar" *ngIf="accountProfile">
             <div class="w-12 rounded-full">
-                <img [src]="accountProfile?.avatar_url" [alt]="accountProfile?.avatar_url" />
+                <img [src]="accountProfile.avatar_url" [alt]="accountProfile.avatar_url" />
             </div>
         </div>
         <h2 class="card-title">
             <ng-container *ngIf="accountProfile?.display_name; else noName">{{ accountProfile?.display_name }}</ng-container>
             <ng-template #noName>
-                <ng-container *ngIf="accountProfile">@{{ accountProfile?.username }}@</ng-container>{{ account.address | lowercase }}
+                <ng-container *ngIf="accountProfile">@{{ accountProfile.username }}@</ng-container>{{ account.address | lowercase }}
             </ng-template>
         </h2>
         <div class="font-mono">
-            <ng-container *ngIf="accountProfile">@{{ accountProfile?.username }}@</ng-container>{{ account.address | lowercase }}
+            <ng-container *ngIf="accountProfile">@{{ accountProfile.username }}@</ng-container>{{ account.address | lowercase }}
             <div class="badge badge-accent">{{ account.type | titlecase }}</div>
         </div>
         <div *ngIf="!accountProfile" class="alert alert-error shadow-lg my-2">
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="card-actions justify-end">
-            <button class="btn btn-sm btn-error">
+            <button class="btn btn-sm btn-error" (click)="deleteButton()">
                 <ng-icon name="mat-delete" class="text-xl"></ng-icon>
             </button>
         </div>

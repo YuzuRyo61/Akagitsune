@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Account } from '../../lib/account';
 import { AccountProfile } from '../../lib/account-profile';
 
@@ -11,6 +11,13 @@ export class AccountCardComponent {
   @Input() account?: Account;
   @Input() accountProfile?: AccountProfile;
 
+  @Output() deleteButtonClicked: EventEmitter<Account> = new EventEmitter<Account>();
+
   constructor() { }
 
+  deleteButton() {
+    if (this.account === undefined) return;
+
+    this.deleteButtonClicked.emit(this.account);
+  }
 }
