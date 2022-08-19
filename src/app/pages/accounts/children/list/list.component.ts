@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AccountService } from '../../../../services/account.service';
 import { Account } from '../../../../lib/account';
+import { confirm } from '@tauri-apps/api/dialog';
 
 @Component({
   selector: 'app-list',
@@ -8,22 +9,29 @@ import { Account } from '../../../../lib/account';
   styleUrls: ['./list.component.scss']
 })
 export class AccountListComponent {
-  deleteConfirmModal = false;
-  deleteTarget?: Account;
 
   constructor(
     public acs: AccountService,
   ) {
   }
 
-  deleteConfirm(account: Account): void {
-    this.deleteConfirmModal = true;
-    this.deleteTarget = account;
-  }
+  async deleteConfirm(account: Account) {
+    const profileData = this.acs.accountProfile.get(account.id);
+    let message: string;
 
-  deleteAccount(): void {
-    if (this.deleteTarget === undefined) return;
-    this.acs.removeAccount(this.deleteTarget.id);
-    this.deleteConfirmModal = false;
+    if (profileData) {
+      message = `Are you sure delete @${ profileData.username }@${ account.address.toLowerCase() }?`;
+    } else {
+      message = `Are you sure delete ${ account.address.toLowerCase() }?`;
+    }
+
+    await confirm(
+      message,
+      {
+        type: 'warning',
+      }
+    ).then(res => {
+      if (res) this.acs.removeAccount(account.id);
+    });
   }
 }

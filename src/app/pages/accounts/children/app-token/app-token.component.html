@@ -11,15 +11,3 @@
         </div>
     </div>
 </div>
-
-<input type="checkbox" class="modal-toggle" [(ngModel)]="deleteConfirmModal" />
-<div class="modal">
-    <div class="modal-box">
-        <h3 class="font-bold text-lg">Are you sure delete?</h3>
-        <p class="py-4">Are you sure delete {{ deleteTarget }}'s app token?</p>
-        <div class="modal-action">
-            <button class="btn" (click)="deleteConfirmModal = false">Cancel</button>
-            <button class="btn btn-error" (click)="deleteAppToken()">Delete</button>
-        </div>
-    </div>
-</div>
