@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService } from './services/theme.service';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
+import { AccountService } from './services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,7 @@ export class AppComponent implements OnInit {
     public router: Router,
     public ts: ThemeService,
     private hks: HotkeysService,
+    private acs: AccountService,
   ) {
   }
 
@@ -44,6 +46,8 @@ export class AppComponent implements OnInit {
     if (this.composeShortcut) this.hks.add(this.composeShortcut);
 
     this.hks.add(new Hotkey(['ctrl+/', 'ctrl+a'], (_: KeyboardEvent): boolean => false));
+
+    this.acs.loadAccounts();
   }
 
   closeComposeDrawer() {

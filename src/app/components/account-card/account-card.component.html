@@ -1,10 +1,29 @@
-<div class="card card-compact bg-base-100 shadow-lg my-4 mx-2">
-    <figure>
-        <img src="https://placeimg.com/400/300/arch" alt="Shoes" class="object-cover h-32 w-full" />
+<div class="card card-compact bg-base-100 shadow-lg my-4 mx-2" *ngIf="account" [ngClass]="{'ring ring-error': accountProfile === undefined}">
+    <figure *ngIf="accountProfile?.banner_url">
+        <img [src]="accountProfile?.banner_url" [alt]="accountProfile?.banner_url" class="object-cover h-32 w-full" />
     </figure>
     <div class="card-body">
-        <h2 class="card-title">Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <div class="avatar" *ngIf="accountProfile">
+            <div class="w-12 rounded-full">
+                <img [src]="accountProfile?.avatar_url" [alt]="accountProfile?.avatar_url" />
+            </div>
+        </div>
+        <h2 class="card-title">
+            <ng-container *ngIf="accountProfile?.display_name; else noName">{{ accountProfile?.display_name }}</ng-container>
+            <ng-template #noName>
+                <ng-container *ngIf="accountProfile">@{{ accountProfile?.username }}@</ng-container>{{ account.address | lowercase }}
+            </ng-template>
+        </h2>
+        <div class="font-mono">
+            <ng-container *ngIf="accountProfile">@{{ accountProfile?.username }}@</ng-container>{{ account.address | lowercase }}
+            <div class="badge badge-accent">{{ account.type | titlecase }}</div>
+        </div>
+        <div *ngIf="!accountProfile" class="alert alert-error shadow-lg my-2">
+            <div>
+                <ng-icon name="mat-error"></ng-icon>
+                <span>Cannot fetch profile.</span>
+            </div>
+        </div>
         <div class="card-actions justify-end">
             <button class="btn btn-sm btn-error">
                 <ng-icon name="mat-delete" class="text-xl"></ng-icon>

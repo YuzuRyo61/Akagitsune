@@ -14,6 +14,9 @@ import { AppAuthorize } from '../lib/app-authorize';
 import { MisskeyMiAuthResponse } from '../lib/misskey/miauth';
 import { IssueToken } from '../lib/issue-token';
 import { MastodonAuthResponse } from '../lib/mastodon/auth';
+import { AccountProfile } from '../lib/account-profile';
+import { MisskeyUser } from '../lib/misskey/user';
+import { MastodonUser } from '../lib/mastodon/user';
 
 
 @Injectable({
@@ -24,45 +27,78 @@ export class AccountService {
     private hc: HttpClient,
   ) {
   }
+  private _account: Account[] = [];
+  private _accountProfile: Map<string, AccountProfile> = new Map<string, AccountProfile>();
 
-  fetchAccounts(): Account[] {
-    const storage = localStorage.getItem('accounts');
-    if (storage === null) return [];
-
-    return JSON.parse(storage) as Account[];
+  get account(): Account[] {
+    return this._account;
   }
 
-  private saveAccount(data: Account[]) {
-    localStorage.setItem('accounts', JSON.stringify(data));
+  get accountProfile(): Map<string, AccountProfile> {
+    return this._accountProfile;
+  }
+
+  loadAccounts(): void {
+    const storage = localStorage.getItem('accounts');
+    if (storage === null) return;
+
+    this._account = JSON.parse(storage) as Account[];
+
+    for (let account of this._account) {
+      this.fetchProfile(
+        account.address,
+        account.type,
+        account.token,
+      ).subscribe({
+        next: value => {
+          this._accountProfile.set(account.id, value);
+        },
+        error: err => {
+          console.error(err);
+        },
+      });
+    }
+  }
+
+  private saveAccount() {
+    localStorage.setItem('accounts', JSON.stringify(this._account));
   }
 
   addAccount(
     address: string,
     type: AccountType,
     token: string,
-  ): Account[] {
+  ): void {
+    const id = uuidV4();
     const newAccount: Account = {
-      id: uuidV4(),
+      id,
       address,
       type,
       token,
     };
 
-    const currentData = this.fetchAccounts();
-    currentData.push(newAccount);
-    this.saveAccount(currentData);
+    this._account.push(newAccount);
+    this.saveAccount();
 
-    return currentData;
+    this.fetchProfile(
+      address,
+      type,
+      token,
+    ).subscribe({
+      next: value => {
+        this._accountProfile.set(id, value);
+      },
+      error: err => {
+        console.error(err);
+      },
+    });
   }
 
   removeAccount(
     id: string,
-  ): Account[] {
-    let currentData = this.fetchAccounts();
-    currentData = currentData.filter(item => item.id !== id);
-    this.saveAccount(currentData);
-
-    return currentData;
+  ): void {
+    this._account = this._account.filter(item => item.id !== id);
+    this.saveAccount();
   }
 
   getAppToken(): Map<string, AppToken> {
@@ -261,6 +297,57 @@ export class AccountService {
             error: err => {
               observer.error(err);
             },
+          });
+          break;
+      }
+    });
+  }
+
+  private fetchProfile(
+    address: string,
+    type: AccountType,
+    token: string,
+  ): Observable<AccountProfile> {
+    return new Observable<AccountProfile>((observer) => {
+      switch (type) {
+        case 'misskey':
+          this.hc.post<MisskeyUser>(`https://${address}/api/i`, {
+            'i': token,
+          }).subscribe({
+            next: value => {
+              observer.next({
+                username: value.username,
+                avatar_url: value.avatarUrl,
+                banner_url: value.bannerUrl,
+                is_bot: value.isBot,
+                display_name: value.name,
+              });
+              observer.complete();
+            },
+            error: err => {
+              observer.error(err);
+            }
+          });
+          break;
+        case 'mastodon':
+          this.hc.get<MastodonUser>(`https://${address}/api/v1/accounts/verify_credentials`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            }
+          }).subscribe({
+            next: value => {
+              observer.next({
+                username: value.username,
+                is_bot: value.bot,
+                display_name: value.display_name,
+                banner_url: value.header,
+                avatar_url: value.avatar,
+              });
+              observer.complete();
+            },
+            error: err => {
+              observer.error(err);
+            }
           });
           break;
       }

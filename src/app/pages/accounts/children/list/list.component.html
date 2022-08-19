@@ -1,7 +1,7 @@
-<div *ngIf="accounts.length === 0" class="flex flex-col justify-center items-center">
+<div *ngIf="acs.account.length === 0" class="flex flex-col justify-center items-center">
     <h1 class="text-2xl font-extrabold select-none">No Accounts</h1>
     <p class="select-none">There are no accounts. Let's add a account to press "Add account"!</p>
 </div>
-<ng-container *ngFor="let account of accounts">
-    <app-account-card></app-account-card>
+<ng-container *ngFor="let account of acs.account">
+    <app-account-card [account]="account" [accountProfile]="acs.accountProfile.get(account.id)"></app-account-card>
 </ng-container>
