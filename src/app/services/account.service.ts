@@ -29,6 +29,7 @@ export class AccountService {
   }
   private _account: Account[] = [];
   private _accountProfile: Map<string, AccountProfile> = new Map<string, AccountProfile>();
+  private _appToken: Map<string, AppToken> = new Map<string, AppToken>();
 
   get account(): Account[] {
     return this._account;
@@ -36,6 +37,10 @@ export class AccountService {
 
   get accountProfile(): Map<string, AccountProfile> {
     return this._accountProfile;
+  }
+
+  get appToken(): Map<string, AppToken> {
+    return this._appToken;
   }
 
   loadAccounts(): void {
@@ -101,42 +106,36 @@ export class AccountService {
     this.saveAccount();
   }
 
-  getAppToken(): Map<string, AppToken> {
+  loadAppToken(): void {
     const storage = localStorage.getItem('appToken');
-    if (storage === null) return new Map();
+    if (storage === null) return;
 
-    return new Map<string, AppToken>(Object.entries(JSON.parse(storage)));
+    this._appToken = new Map<string, AppToken>(Object.entries(JSON.parse(storage)));
   }
 
-  private saveAppToken(data: Map<string, AppToken>) {
-    localStorage.setItem('appToken', JSON.stringify(Object.fromEntries(data)));
+  private saveAppToken() {
+    localStorage.setItem('appToken', JSON.stringify(Object.fromEntries(this._appToken)));
   }
 
   private addAppToken(
     address: string,
     clientId: string,
     clientSecret: string,
-  ): Map<string, AppToken> {
-    let currentData = this.getAppToken();
-    currentData = currentData.set(address, {
+  ): void {
+    this._appToken = this._appToken.set(address, {
       client_id: clientId,
       client_secret: clientSecret,
     });
 
-    this.saveAppToken(currentData);
-
-    return currentData;
+    this.saveAppToken();
   }
 
   removeAppToken(
     address: string,
-  ): Map<string, AppToken> {
-    let currentData = this.getAppToken();
-    currentData.delete(address);
+  ): void {
+    this._appToken.delete(address);
 
-    this.saveAppToken(currentData);
-
-    return currentData;
+    this.saveAppToken();
   }
 
   checkInstance(
@@ -202,10 +201,9 @@ export class AccountService {
         case 'mastodon':
           const redirectUri = `urn:ietf:wg:oauth:2.0:oob`;
           const scopes = 'read write follow push';
-          const appToken = this.getAppToken();
-          if (appToken.has(address)) {
+          if (this._appToken.has(address)) {
             // Using exists oauth token
-            const token = appToken.get(address);
+            const token = this._appToken.get(address);
             if (token === undefined) {
               observer.error('[Internal error] token is undefined');
               return;
@@ -271,12 +269,11 @@ export class AccountService {
           });
           break;
         case 'mastodon':
-          const appToken = this.getAppToken();
-          if (!appToken.has(address)) {
+          if (!this._appToken.has(address)) {
             observer.error('[Internal error] app token not found');
             return;
           }
-          const appTokenData = this.getAppToken().get(address);
+          const appTokenData = this._appToken.get(address);
           if (appTokenData === undefined) {
             observer.error('[Internal error] app token not found');
             return;

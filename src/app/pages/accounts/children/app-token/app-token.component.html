@@ -1,1 +1,25 @@
-<p>app-token works!</p>
+<h1 class="text-3xl font-extrabold">App token</h1>
+<p>This is a list of instances in which saved OAuth client IDs, etc. are stored.</p>
+
+<div class="card card-compact bg-base-100 shadow-lg my-4 mx-2" *ngFor="let token of acs.appToken | keyvalue">
+    <div class="card-body">
+        <h2 class="card-title">{{ token.key }}</h2>
+        <div class="card-actions justify-end">
+            <button class="btn btn-sm btn-error" (click)="deleteConfirm(token.key)">
+                <ng-icon name="mat-delete" class="text-xl"></ng-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<input type="checkbox" class="modal-toggle" [(ngModel)]="deleteConfirmModal" />
+<div class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Are you sure delete?</h3>
+        <p class="py-4">Are you sure delete {{ deleteTarget }}'s app token?</p>
+        <div class="modal-action">
+            <button class="btn" (click)="deleteConfirmModal = false">Cancel</button>
+            <button class="btn btn-error" (click)="deleteAppToken()">Delete</button>
+        </div>
+    </div>
+</div>

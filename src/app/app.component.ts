@@ -48,6 +48,7 @@ export class AppComponent implements OnInit {
     this.hks.add(new Hotkey(['ctrl+/', 'ctrl+a'], (_: KeyboardEvent): boolean => false));
 
     this.acs.loadAccounts();
+    this.acs.loadAppToken();
   }
 
   closeComposeDrawer() {
