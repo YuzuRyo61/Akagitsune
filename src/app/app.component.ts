@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { ThemeService } from './services/theme.service';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { AccountService } from './services/account.service';
+import { ColumnService } from './services/column.service';
+import { getName } from '@tauri-apps/api/app';
+import packageJson from '../../package.json';
+
 
 @Component({
   selector: 'app-root',
@@ -13,6 +17,7 @@ export class AppComponent implements OnInit {
   composeDrawer = false;
   modal = false;
   @ViewChild('composeTextarea') private composeTextarea?: ElementRef;
+  name = packageJson.name;
 
   private settingsShortcut?: Hotkey = new Hotkey('ctrl+,', (_: KeyboardEvent): boolean => {
     if (!this.router.url.startsWith('/settings')) {
@@ -38,10 +43,11 @@ export class AppComponent implements OnInit {
     public ts: ThemeService,
     private hks: HotkeysService,
     private acs: AccountService,
+    public cs: ColumnService,
   ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.settingsShortcut) this.hks.add(this.settingsShortcut);
     if (this.composeShortcut) this.hks.add(this.composeShortcut);
 
@@ -49,6 +55,8 @@ export class AppComponent implements OnInit {
 
     this.acs.loadAccounts();
     this.acs.loadAppToken();
+
+    this.name = await getName();
   }
 
   closeComposeDrawer() {

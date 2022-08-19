@@ -19,6 +19,8 @@ import { HotkeyModule } from 'angular2-hotkeys';
 import { ThemeService } from './services/theme.service';
 import { AccountService } from './services/account.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ColumnService } from './services/column.service';
+
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     ThemeService,
     AccountService,
+    ColumnService,
   ],
   bootstrap: [AppComponent]
 })
