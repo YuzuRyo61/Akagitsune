@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 .ak-navigation {
-  @apply h-screen fixed left-0 top-0 shadow-black shadow-md px-2 z-10 bg-primary text-primary-content inline-flex;
+  @apply h-screen fixed left-0 top-0 shadow-black shadow-md px-2 z-20 bg-primary text-primary-content inline-flex;
 
   .ak-navigation-menu {
     @apply overflow-y-auto flex flex-col h-full py-2 gap-1;

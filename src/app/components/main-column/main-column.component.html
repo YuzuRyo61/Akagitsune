@@ -1,35 +1,83 @@
-<div class="bg-base-100 w-80 h-full rounded-box focus:ring focus:ring-primary-focus focus:outline-none overflow-y-hidden" tabindex="2" *ngIf="column">
-    <div class="w-full bg-primary rounded-t-box items-center align-middle py-2 relative">
-        <ng-container [ngSwitch]="column.type">
-            <ng-icon name="mat-home" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'home'"></ng-icon>
-            <ng-icon name="mat-groups" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'local'"></ng-icon>
-            <ng-icon name="mat-share" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'social'"></ng-icon>
-            <ng-icon name="mat-public" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'global'"></ng-icon>
-        </ng-container>
-        <div class="select-none inline-block max-w-full">
-            <h2 class="font-extrabold text-primary-content w-52 block truncate">{{ column.type | titlecase }}</h2>
-            <span class="font-light font-mono text-primary-content text-2xs truncate block w-52" [title]="acct">{{ acct }}</span>
-        </div>
-        <button class="btn btn-sm btn-ghost absolute top-3 right-2" (click)="columnSettings = !columnSettings" tabindex="-1">
-            <ng-icon name="mat-menu" class="text-lg text-primary-content"></ng-icon>
-        </button>
-        <div [hidden]="!columnSettings" class="mx-2 text-primary-content">
-            <div class="flex flex-row">
-                <div class="flex-grow">
-                    <!--
-                    <div class="btn-group">
-                        <button class="btn btn-xs"><ng-icon name="mat-navigate-before" class="text-sm"></ng-icon></button>
-                        <button class="btn btn-xs"><ng-icon name="mat-navigate-next" class="text-sm"></ng-icon></button>
+<div class="bg-base-100 w-80 h-full focus:ring focus:ring-primary-focus focus:outline-none overflow-hidden shadow-xl" tabindex="2" *ngIf="column" #scrollingBlock>
+    <div class="sticky top-0 z-10">
+        <div class="w-full bg-primary items-center align-middle py-2 relative">
+            <ng-container [ngSwitch]="column.type">
+                <ng-icon name="mat-home" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'home'"></ng-icon>
+                <ng-icon name="mat-groups" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'local'"></ng-icon>
+                <ng-icon name="mat-share" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'social'"></ng-icon>
+                <ng-icon name="mat-public" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'global'"></ng-icon>
+            </ng-container>
+            <div class="select-none inline-block max-w-full">
+                <h2 class="font-extrabold text-primary-content w-52 block truncate">{{ column.type | titlecase }}</h2>
+                <span class="font-light font-mono text-primary-content text-2xs truncate block w-52" [title]="acct">{{ acct }}</span>
+            </div>
+            <button class="btn btn-sm btn-ghost absolute top-3 right-2" (click)="columnSettings = !columnSettings" tabindex="-1">
+                <ng-icon name="mat-menu" class="text-lg text-primary-content"></ng-icon>
+            </button>
+            <div [hidden]="!columnSettings" class="mx-2 text-primary-content">
+                <div class="flex flex-row">
+                    <div class="flex-grow">
+                        <!--
+                        <div class="btn-group">
+                            <button class="btn btn-xs"><ng-icon name="mat-navigate-before" class="text-sm"></ng-icon></button>
+                            <button class="btn btn-xs"><ng-icon name="mat-navigate-next" class="text-sm"></ng-icon></button>
+                        </div>
+                        -->
                     </div>
-                    -->
-                </div>
-                <div class="mr-0" (click)="deleteButton.emit(column)">
-                    <button class="btn btn-error btn-xs"><ng-icon name="mat-delete" class="text-sm"></ng-icon></button>
+                    <div class="mr-0" (click)="deleteButton.emit(column)">
+                        <button class="btn btn-error btn-xs tooltip tooltip-left" data-tip="Delete"><ng-icon name="mat-delete" class="text-sm"></ng-icon></button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div>
 
-    </div>
+    <virtual-scroller #scroll [items]="items" [parentScroll]="scrollingBlock" [enableUnequalChildrenSizes]="true">
+        <div *ngFor="let item of viewPortItemsCast(scroll.viewPortItems)"
+            class="p-2 mx-1 border-b border-base-200 focus:bg-base-200 focus:outline-none"
+        >
+            <div class="flex flex-row">
+                <div>
+                    <a class="avatar" href="#">
+                        <div class="w-10 rounded-full">
+                            <img [src]="item.user.avatar_url" [alt]="item.user.avatar_url">
+                        </div>
+                    </a>
+                </div>
+                <div class="ml-1 flex-grow">
+                    <div>
+                        <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.user.display_name }}</a>
+                        <a class="font-light text-xs hover:underline" href="#">@{{ item.user.username }}</a>
+                    </div>
+                    <div class="break-all text-sm w-full">
+                        {{ item.body }}
+                    </div>
+                    <div class="mt-1">
+                        <div class="flex flex-row">
+                            <div class="btn-group flex-grow">
+                                <button class="btn btn-ghost btn-xs" disabled>
+                                    <ng-icon name="mat-reply" class="text-sm"></ng-icon>
+                                </button>
+                                <button class="btn btn-ghost btn-xs" disabled>
+                                    <ng-icon name="mat-repeat" class="text-sm"></ng-icon>
+                                </button>
+                                <button class="btn btn-ghost btn-xs" *ngIf="account" disabled>
+                                    <ng-container [ngSwitch]="account.type">
+                                        <ng-icon name="mat-star" class="text-sm" *ngSwitchCase="'mastodon'"></ng-icon>
+                                        <ng-icon name="mat-add-reaction" class="text-sm" *ngSwitchCase="'misskey'"></ng-icon>
+                                    </ng-container>
+                                </button>
+                                <button class="btn btn-ghost btn-xs" disabled>
+                                    <ng-icon name="mat-more-horiz" class="text-sm"></ng-icon>
+                                </button>
+                            </div>
+                            <div>
+                                <a class="text-xs hover:underline" href="#">x secs ago</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </virtual-scroller>
 </div>
