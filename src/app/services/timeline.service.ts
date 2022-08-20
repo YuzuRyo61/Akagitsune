@@ -36,7 +36,7 @@ export class TimelineService {
                   body: val.content,
                   user: {
                     id: val.account.id,
-                    username: val.account.username,
+                    acct: val.account.acct,
                     display_name: val.account.display_name,
                     avatar_url: val.account.avatar,
                   },
@@ -76,7 +76,7 @@ export class TimelineService {
                 cw: status.spoiler_text,
                 user: {
                   id: status.account.id,
-                  username: status.account.username,
+                  acct: status.account.acct,
                   display_name: status.account.display_name,
                   avatar_url: status.account.avatar,
                 }

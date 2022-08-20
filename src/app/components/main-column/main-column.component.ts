@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Column } from '../../lib/column';
 import { AccountService } from '../../services/account.service';
 import { Account } from '../../lib/account';
 import { TimelineService } from '../../services/timeline.service';
 import { Statuses } from '../../lib/statuses';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-column',
   templateUrl: './main-column.component.html',
   styleUrls: ['./main-column.component.scss']
 })
-export class MainColumnComponent implements OnInit {
+export class MainColumnComponent implements OnInit, OnDestroy {
   columnSettings = false;
 
   @Input() column?: Column;
@@ -18,6 +19,8 @@ export class MainColumnComponent implements OnInit {
   @Output() deleteButton: EventEmitter<Column> = new EventEmitter<Column>();
 
   items: Statuses[] = [];
+
+  private streamSubscription?: Subscription;
 
   constructor(
     private acs: AccountService,
@@ -37,12 +40,16 @@ export class MainColumnComponent implements OnInit {
             this.items.push(...value);
           }
         });
-        this.ts.homeStream(account).subscribe({
+        this.streamSubscription = this.ts.homeStream(account).subscribe({
           next: value => {
             this.items.unshift(value);
           }
         });
     }
+  }
+
+  ngOnDestroy() {
+    if (this.streamSubscription) this.streamSubscription.unsubscribe();
   }
 
   get acct(): string {

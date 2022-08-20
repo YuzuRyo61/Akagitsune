@@ -18,3 +18,9 @@
 .main {
   @apply pl-20 pr-2 flex flex-row gap-2 py-2 h-screen;
 }
+
+.body-text {
+  a {
+    @apply text-info hover:underline;
+  }
+}
