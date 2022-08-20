@@ -1,14 +1,22 @@
-<div [attr.data-theme]="ts.currentTheme">
+<div [attr.data-theme]="ts.currentTheme" class="bg-base-200 min-w-max">
     <div class="ak-navigation">
+        <!-- Navigation -->
         <div class="ak-navigation-menu">
             <button class="btn btn-accent" (click)="composeDrawer = !composeDrawer">
                 <ng-icon name="mat-edit" class="text-xl"></ng-icon>
             </button>
             <div class="divider"></div>
             <div class="flex-1 flex flex-col gap-y-1">
-                <button class="btn btn-ghost" *ngFor="let column of cs.column">
-                    <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                <!--
+                <button class="btn btn-ghost" *ngFor="let column of cs.column" [title]="columnButtonTitle(column)">
+                    <ng-container [ngSwitch]="column.type">
+                        <ng-icon name="mat-home" class="text-xl" *ngSwitchCase="'home'"></ng-icon>
+                        <ng-icon name="mat-groups" class="text-xl" *ngSwitchCase="'local'"></ng-icon>
+                        <ng-icon name="mat-share" class="text-xl" *ngSwitchCase="'social'"></ng-icon>
+                        <ng-icon name="mat-public" class="text-xl" *ngSwitchCase="'global'"></ng-icon>
+                    </ng-container>
                 </button>
+                -->
             </div>
             <div class="flex flex-col gap-1">
                 <div class="divider"></div>
@@ -27,9 +35,19 @@
             </div>
         </div>
 
+        <!-- Compose drawer -->
         <div class="ak-navigation-compose" [hidden]="!composeDrawer">
             <h1 class="text-2xl font-extrabold select-none">Compose</h1>
             <div class="divider"></div>
+
+            <!-- Work in progress alert -->
+            <div class="alert alert-info shadow-lg">
+                <div>
+                    <ng-icon name="mat-info" class="text-xl"></ng-icon>
+                    <span>Compose section is now in development! Stay tuned!</span>
+                </div>
+            </div>
+
             <div class="form-control">
                 <label class="label">
                     <span class="label-text text-primary-content">Status</span>
@@ -38,7 +56,8 @@
                         class="textarea textarea-bordered h-24 text-base-content"
                         placeholder="What happened?"
                         (keydown.escape)="closeComposeDrawer()"
-                        #composeTextarea></textarea>
+                        #composeTextarea
+                        disabled></textarea>
                 <label class="label">
                     <span class="label-text-alt"></span>
                     <span class="label-text-alt text-primary-content">500</span>
@@ -46,13 +65,14 @@
             </div>
             <div class="flex">
                 <div class="flex-1"></div>
-                <button class="btn btn-sm btn-secondary">
+                <button class="btn btn-sm btn-secondary" disabled>
                     Post!
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- Hero view (If empty column) -->
     <div class="hero min-h-screen pl-20" *ngIf="cs.column.length === 0; else normalView">
         <div class="hero-content text-center">
             <div class="max-w-md">
@@ -68,16 +88,20 @@
         </div>
     </div>
 
+    <!-- Column view (normal view) -->
     <ng-template #normalView>
         <div class="main">
-            <app-main-column *ngFor="let column of cs.column"></app-main-column>
+            <app-main-column *ngFor="let column of cs.column; index as i" [column]="column"
+                             (deleteButton)="cs.removeColumn(i)"></app-main-column>
         </div>
     </ng-template>
 
     <!-- Page modal -->
     <input type="checkbox" id="modal" class="modal-toggle" [ngModel]="router.url !== '/'" />
     <div class="modal">
-        <button class="btn btn-secondary btn-circle absolute right-2 top-2 inset-x-auto inset-y-0 z-10" routerLink="/" tabindex="3">✕</button>
+        <button class="btn btn-secondary btn-circle absolute right-2 top-2 inset-x-auto inset-y-0 z-10" routerLink="/"
+                tabindex="3">✕
+        </button>
 
         <div class="modal-box w-11/12 max-w-5xl">
             <router-outlet></router-outlet>

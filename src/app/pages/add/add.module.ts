@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AddComponent } from './add.component';
 import { RouterModule } from '@angular/router';
 import { StepperModule } from '../../components/stepper/stepper.module';
+import { FormsModule } from '@angular/forms';
+import { NgIconComponent } from '@ng-icons/core';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { StepperModule } from '../../components/stepper/stepper.module';
       component: AddComponent,
     }]),
     StepperModule,
+    FormsModule,
+    NgIconComponent,
   ],
 })
 export class AddModule { }

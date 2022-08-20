@@ -1,6 +1,7 @@
 <h1 class="text-3xl font-extrabold">Add account</h1>
 
 <app-stepper #stepper>
+    <!--  Step 1. Select Type  -->
     <cdk-step label="Select Type">
         <h2 class="text-xl font-bold">Select Type</h2>
         <p>Select a instance type.</p>
@@ -24,6 +25,8 @@
             </div>
         </div>
     </cdk-step>
+
+    <!--  Step 2. Instance address  -->
     <cdk-step label="Instance Address" (interacted)="checkInstance()">
         <h2 class="text-xl font-bold">Instance Address</h2>
         <p>Please input a {{ instanceType | titlecase }} instance address.</p>
@@ -50,6 +53,8 @@
             </div>
         </div>
     </cdk-step>
+
+    <!-- Step 3. Check instance -->
     <cdk-step label="Check instance" (interacted)="startAuthentication()">
         <h2 class="text-xl font-bold">Check instance</h2>
         <p>Please check if it is the desired instance.</p>
@@ -88,6 +93,7 @@
         </div>
     </cdk-step>
 
+    <!--  Step 4. Authenticate  -->
     <cdk-step label="Authenticate">
         <h2 class="text-xl font-bold">Authenticate</h2>
         <p>An authentication URL will open. Click the URL to copy it to your clipboard.</p>
@@ -123,6 +129,7 @@
         </div>
     </cdk-step>
 
+    <!--  Step 5. Complete  -->
     <cdk-step label="Complete">
         <h2 class="text-xl font-bold">Complete</h2>
         <p>Authentication complete!</p>

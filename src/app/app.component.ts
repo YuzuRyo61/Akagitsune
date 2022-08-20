@@ -6,6 +6,7 @@ import { AccountService } from './services/account.service';
 import { ColumnService } from './services/column.service';
 import { getName } from '@tauri-apps/api/app';
 import packageJson from '../../package.json';
+import { Column } from './lib/column';
 
 
 @Component({
@@ -55,9 +56,25 @@ export class AppComponent implements OnInit {
 
     this.acs.loadAccounts();
     this.acs.loadAppToken();
+    this.cs.loadColumns();
 
     this.name = await getName();
   }
+
+  toTitleCase(str: string): string {
+    return str.charAt(0).replace(str.charAt(0), str.charAt(0).toUpperCase()) + str.slice(1);
+  }
+
+  columnButtonTitle(column: Column): string {
+      const account = this.acs.account.get(column.account);
+      if (account === undefined) return `${this.toTitleCase(column.type)} (???)`;
+
+      const accountProfile = this.acs.accountProfile.get(column.account);
+      if (accountProfile === undefined) return `${this.toTitleCase(column.type)} (${ account.address.toLowerCase() })`;
+
+      return `${this.toTitleCase(column.type)} (@${ accountProfile.username }@${ account.address.toLowerCase() })`;
+  }
+
 
   closeComposeDrawer() {
     this.composeDrawer = false;

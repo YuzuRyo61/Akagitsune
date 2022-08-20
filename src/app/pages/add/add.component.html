@@ -1,5 +1,88 @@
-<app-stepper>
+<app-stepper #stepper>
+    <!--  Step 1. Select account  -->
     <cdk-step label="Select account">
+        <h2 class="text-xl font-bold">Select account</h2>
+        <p>Select an account.</p>
 
+        <div class="form-control w-full p-2">
+            <label class="label">
+                <span class="label-text">Account</span>
+            </label>
+            <select class="select select-bordered" [(ngModel)]="targetAccountId" (ngModelChange)="changeEvent($event)" required>
+                <option value="" disabled selected>Select account...</option>
+                <option
+                        *ngFor="let account of acs.account | keyvalue"
+                        [value]="account.key" [disabled]="acs.accountProfile.get(account.key) === undefined">
+                    <ng-container *ngIf="acs.accountProfile.get(account.key)">@{{ acs.accountProfile.get(account.key)?.username }}@</ng-container>{{ account.value.address | lowercase }}
+                </option>
+                <option disabled>---</option>
+                <option value="@!add">Add account...</option>
+                <option value="@!manage">Manage account...</option>
+            </select>
+        </div>
+
+        <div class="flex flex-col justify-center items-center mt-2">
+            <button class="btn btn-primary" [disabled]="targetAccountId === ''" cdkStepperNext>Next</button>
+        </div>
+    </cdk-step>
+
+    <!--  Step 2. Select type  -->
+    <cdk-step label="Select type">
+        <h2 class="text-xl font-bold">Select type</h2>
+        <p>Select a column type.</p>
+
+        <div>
+            <ul class="menu w-full p-2 rounded-box">
+                <li>
+                    <a tabindex="1" (click)="selectColumnType('home')">
+                        <ng-icon name="mat-home" class="text-xl"></ng-icon>
+                        <div>Home</div>
+                    </a>
+                </li>
+                <li>
+                    <a tabindex="1" (click)="selectColumnType('local')">
+                        <ng-icon name="mat-groups" class="text-xl"></ng-icon>
+                        <div>Local</div>
+                    </a>
+                </li>
+                <li *ngIf="targetAccount && targetAccount.type === 'misskey'">
+                    <a tabindex="1" (click)="selectColumnType('social')">
+                        <ng-icon name="mat-share" class="text-xl"></ng-icon>
+                        <div>Social</div>
+                    </a>
+                </li>
+                <li>
+                    <a tabindex="1" (click)="selectColumnType('global')">
+                        <ng-icon name="mat-public" class="text-xl"></ng-icon>
+                        <div>Global</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="flex flex-col justify-center items-center mt-2">
+            <button class="btn" cdkStepperPrevious>Previous</button>
+        </div>
+    </cdk-step>
+
+    <!-- Step 3. Column options -->
+    <cdk-step label="Column options">
+        <h2 class="text-xl font-bold">Column options: {{ targetColumnType | titlecase }}</h2>
+        <p>Specifies the options necessary to create a column.</p>
+
+        <ng-container [ngSwitch]="targetColumnType">
+            <div *ngSwitchDefault>
+                <div class="rounded-box bg-base-200 p-4 my-2">
+                    <p>There are no options for columns of this type.</p>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="flex flex-col justify-center items-center mt-2">
+            <div class="btn-group">
+                <button class="btn" cdkStepperPrevious>Previous</button>
+                <button class="btn btn-primary" (click)="addColumn()">Add</button>
+            </div>
+        </div>
     </cdk-step>
 </app-stepper>

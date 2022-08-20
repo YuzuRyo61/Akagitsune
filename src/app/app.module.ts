@@ -12,6 +12,18 @@ import {
   MatSettings,
   MatHelp,
   MatPlus,
+  MatDelete,
+  MatInfo,
+  MatVerified,
+  MatAccountCircle,
+  MatToken,
+  MatError,
+  MatBrush,
+  MatGroups,
+  MatPublic,
+  MatShare,
+  MatNavigateBefore,
+  MatNavigateNext,
 } from '@ng-icons/material-icons/baseline';
 import { MainColumnComponent } from './components/main-column/main-column.component';
 import { FormsModule } from '@angular/forms';
@@ -38,11 +50,21 @@ import { ColumnService } from './services/column.service';
       MatSettings,
       MatHelp,
       MatPlus,
+      MatDelete,
+      MatInfo,
+      MatVerified,
+      MatAccountCircle,
+      MatToken,
+      MatError,
+      MatBrush,
+      MatGroups,
+      MatPublic,
+      MatShare,
+      MatNavigateBefore,
+      MatNavigateNext,
     }),
     FormsModule,
-    HotkeyModule.forRoot({
-
-    }),
+    HotkeyModule.forRoot({}),
     HttpClientModule,
   ],
   providers: [
@@ -50,6 +72,7 @@ import { ColumnService } from './services/column.service';
     AccountService,
     ColumnService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}

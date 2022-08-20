@@ -5,11 +5,6 @@ import { RouterModule } from '@angular/router';
 import { VersionComponent } from './children/version/version.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { LicenseComponent } from './children/license/license.component';
-import {
-  MatInfo,
-  MatVerified,
-} from '@ng-icons/material-icons/baseline';
-
 
 @NgModule({
   declarations: [
@@ -38,10 +33,7 @@ import {
         }
       ]
     }]),
-    NgIconsModule.withIcons({
-      MatInfo,
-      MatVerified,
-    }),
+    NgIconsModule,
   ],
 })
 export class AboutModule { }
