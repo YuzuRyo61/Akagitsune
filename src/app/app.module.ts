@@ -25,19 +25,18 @@ import {
   MatNavigateBefore,
   MatNavigateNext,
 } from '@ng-icons/material-icons/baseline';
-import { MainColumnComponent } from './components/main-column/main-column.component';
 import { FormsModule } from '@angular/forms';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { ThemeService } from './services/theme.service';
 import { AccountService } from './services/account.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ColumnService } from './services/column.service';
+import { MainColumnModule } from './components/main-column/main-column.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainColumnComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +65,7 @@ import { ColumnService } from './services/column.service';
     FormsModule,
     HotkeyModule.forRoot({}),
     HttpClientModule,
+    MainColumnModule,
   ],
   providers: [
     ThemeService,
