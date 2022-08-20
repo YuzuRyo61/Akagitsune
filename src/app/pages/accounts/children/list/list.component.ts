@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AccountService } from '../../../../services/account.service';
-import { Account } from '../../../../lib/account';
 import { confirm } from '@tauri-apps/api/dialog';
 
 @Component({
@@ -15,8 +14,11 @@ export class AccountListComponent {
   ) {
   }
 
-  async deleteConfirm(account: Account) {
-    const profileData = this.acs.accountProfile.get(account.id);
+  async deleteConfirm(key: string) {
+    const account = this.acs.account.get(key);
+    if (account === undefined) return;
+
+    const profileData = this.acs.accountProfile.get(key);
     let message: string;
 
     if (profileData) {
@@ -31,7 +33,7 @@ export class AccountListComponent {
         type: 'warning',
       }
     ).then(res => {
-      if (res) this.acs.removeAccount(account.id);
+      if (res) this.acs.removeAccount(key);
     });
   }
 }

@@ -27,11 +27,11 @@ export class AccountService {
     private hc: HttpClient,
   ) {
   }
-  private _account: Account[] = [];
+  private _account: Map<string, Account> = new Map<string, Account>();
   private _accountProfile: Map<string, AccountProfile> = new Map<string, AccountProfile>();
   private _appToken: Map<string, AppToken> = new Map<string, AppToken>();
 
-  get account(): Account[] {
+  get account(): Map<string, Account> {
     return this._account;
   }
 
@@ -47,26 +47,26 @@ export class AccountService {
     const storage = localStorage.getItem('accounts');
     if (storage === null) return;
 
-    this._account = JSON.parse(storage) as Account[];
+    this._account = new Map<string, Account>(Object.entries(JSON.parse(storage)));
 
-    for (let account of this._account) {
+    this._account.forEach((value, key) => {
       this.fetchProfile(
-        account.address,
-        account.type,
-        account.token,
+        value.address,
+        value.type,
+        value.token,
       ).subscribe({
-        next: value => {
-          this._accountProfile.set(account.id, value);
+        next: profile => {
+          this._accountProfile.set(key, profile);
         },
         error: err => {
           console.error(err);
         },
       });
-    }
+    });
   }
 
   private saveAccount() {
-    localStorage.setItem('accounts', JSON.stringify(this._account));
+    localStorage.setItem('accounts', JSON.stringify(Object.fromEntries(this._account)));
   }
 
   addAccount(
@@ -76,13 +76,12 @@ export class AccountService {
   ): void {
     const id = uuidV4();
     const newAccount: Account = {
-      id,
       address,
       type,
       token,
     };
 
-    this._account.push(newAccount);
+    this._account.set(id, newAccount);
     this.saveAccount();
 
     this.fetchProfile(
@@ -102,7 +101,7 @@ export class AccountService {
   removeAccount(
     id: string,
   ): void {
-    this._account = this._account.filter(item => item.id !== id);
+    this._account.delete(id);
     this.saveAccount();
   }
 
