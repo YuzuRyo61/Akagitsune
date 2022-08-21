@@ -51,7 +51,7 @@
                     </div>
                     <div class="break-all text-sm w-full">
                         <div class="body-text" [innerHTML]="item.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
-                        <ng-template #rawText>{{ item.body }}</ng-template>
+                        <ng-template #rawText><div class="whitespace-pre-wrap">{{ item.body }}</div></ng-template>
                     </div>
                     <div class="mt-1">
                         <div class="flex flex-row">
@@ -73,7 +73,7 @@
                                 </button>
                             </div>
                             <div>
-                                <a class="text-xs hover:underline" href="#">x secs ago</a>
+                                <a class="text-xs hover:underline" href="#">{{ item.created_at | date : 'short' }}</a>
                             </div>
                         </div>
                     </div>

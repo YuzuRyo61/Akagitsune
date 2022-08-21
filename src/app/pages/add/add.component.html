@@ -33,26 +33,26 @@
 
         <div>
             <ul class="menu w-full p-2 rounded-box">
-                <li>
-                    <a tabindex="1" (click)="selectColumnType('home')">
+                <li tabindex="1">
+                    <a (click)="selectColumnType('home')">
                         <ng-icon name="mat-home" class="text-xl"></ng-icon>
                         <div>Home</div>
                     </a>
                 </li>
-                <li>
-                    <a tabindex="1" (click)="selectColumnType('local')">
+                <li class="disabled tooltip" data-tip="Now in development!">
+                    <a>
                         <ng-icon name="mat-groups" class="text-xl"></ng-icon>
                         <div>Local</div>
                     </a>
                 </li>
-                <li *ngIf="targetAccount && targetAccount.type === 'misskey'">
-                    <a tabindex="1" (click)="selectColumnType('social')">
+                <li *ngIf="targetAccount && targetAccount.type === 'misskey'" class="disabled tooltip" data-tip="Now in development!">
+                    <a>
                         <ng-icon name="mat-share" class="text-xl"></ng-icon>
                         <div>Social</div>
                     </a>
                 </li>
-                <li>
-                    <a tabindex="1" (click)="selectColumnType('global')">
+                <li class="disabled tooltip" data-tip="Now in development!">
+                    <a>
                         <ng-icon name="mat-public" class="text-xl"></ng-icon>
                         <div>Global</div>
                     </a>
