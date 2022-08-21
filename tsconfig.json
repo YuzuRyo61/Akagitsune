@@ -22,6 +22,7 @@
       "es2020",
       "dom"
     ],
+    "types": ["raw-loader.d.ts"],
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
