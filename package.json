@@ -1,6 +1,6 @@
 {
   "name": "akagitsune",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "YuzuRyo61",
     "email": "yuzuryo61@yuzulia.work",
@@ -45,6 +45,7 @@
     "daisyui": "^2.24.0",
     "ngx-virtual-scroller": "^4.0.3",
     "rxjs": "~7.5.0",
+    "tailwindcss": "^3.1.8",
     "tslib": "^2.3.0",
     "uuid": "^8.3.2",
     "zone.js": "~0.11.4"
@@ -76,7 +77,6 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "postcss": "^8.4.16",
     "raw-loader": "^4.0.2",
-    "tailwindcss": "^3.1.8",
     "typescript": "*"
   }
 }
