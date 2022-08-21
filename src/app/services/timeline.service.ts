@@ -5,7 +5,7 @@ import { MastodonStreamEvent } from '../lib/mastodon/stream';
 import { Observable } from 'rxjs';
 import { Statuses } from '../lib/statuses';
 import { MastodonStatus } from '../lib/mastodon/status';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { MisskeyNote } from '../lib/misskey/note';
 import { v4 as uuidV4 } from 'uuid';
 import { MisskeyStreamEvent } from '../lib/misskey/stream';
@@ -21,13 +21,14 @@ export class TimelineService {
   ) {
   }
 
-  homeTimeline(account: Account): Observable<Statuses[]> {
+  timeline(account: Account, option?: { untilId?: string }): Observable<Statuses[]> {
     switch (account.type) {
       case 'misskey':
         return new Observable<Statuses[]>(observer => {
           this.hc.post<MisskeyNote[]>(`https://${ account.address }/api/notes/timeline`, {
             'i': account.token,
             'limit': 20,
+            'untilId': option?.untilId,
           }).subscribe({
             next: value => {
               let data: Statuses[] = [];
@@ -55,10 +56,14 @@ export class TimelineService {
         });
       case 'mastodon':
         return new Observable<Statuses[]>(observer => {
+          let params = new HttpParams();
+          if (option !== undefined && option.untilId !== undefined) params = params.set('max_id', option.untilId);
+
           this.hc.get<MastodonStatus[]>(`https://${ account.address }/api/v1/timelines/home`, {
             headers: {
               'Authorization': `Bearer ${ account.token }`,
             },
+            params,
           }).subscribe({
             next: value => {
               let data: Statuses[] = [];
@@ -87,7 +92,7 @@ export class TimelineService {
     }
   }
 
-  homeStream(account: Account): Observable<Statuses> {
+  stream(account: Account): Observable<Statuses> {
     switch (account.type) {
       case 'misskey':
         return new Observable<Statuses>(observer => {

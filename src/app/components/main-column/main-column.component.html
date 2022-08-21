@@ -32,7 +32,8 @@
         </div>
     </div>
 
-    <virtual-scroller #scroll [items]="items" [parentScroll]="scrollingBlock" [enableUnequalChildrenSizes]="true">
+    <virtual-scroller #scroll [items]="items" [parentScroll]="scrollingBlock" [enableUnequalChildrenSizes]="true" (vsEnd)="fetchMore($event)">
+        <!--  Items  -->
         <div *ngFor="let item of viewPortItemsCast(scroll.viewPortItems)"
             class="p-2 mx-1 border-b border-base-200 focus:bg-base-200 focus:outline-none"
         >
@@ -78,6 +79,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!--  Loading section  -->
+        <div *ngIf="loading" class="p-2 mx-1">
+            <div class="flex flex-row justify-center items-center">
+                <p>Loading...</p>
             </div>
         </div>
     </virtual-scroller>
