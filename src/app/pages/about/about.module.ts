@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { VersionComponent } from './children/version/version.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { LicenseComponent } from './children/license/license.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { LicenseComponent } from './children/license/license.component';
       ]
     }]),
     NgIconsModule,
+    HttpClientModule,
   ],
 })
 export class AboutModule { }

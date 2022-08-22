@@ -1,5 +1,11 @@
 <h1 class="text-3xl font-extrabold">License</h1>
-<h2 class="text-xl font-bold">{{ name }}</h2>
-<pre class="font-mono break-word text-sm whitespace-pre-wrap">
-    {{ licenseText }}
-</pre>
+
+<div class="collapse collapse-plus border border-base-300 bg-base-200 rounded-box my-4" *ngFor="let license of licenseList">
+    <input type="checkbox" class="peer" />
+    <div class="collapse-title">
+        {{ license.name }}
+    </div>
+    <div class="collapse-content">
+        <pre class="font-mono break-word text-sm whitespace-pre-wrap w-full">{{ license.body }}</pre>
+    </div>
+</div>

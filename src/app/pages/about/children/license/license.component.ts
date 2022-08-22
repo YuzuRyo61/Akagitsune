@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import txt from '!!raw-loader!../../../../../../LICENSE';
 import packageJson from '../../../../../../package.json';
 import { getName } from '@tauri-apps/api/app';
+
+// License imports
+import akagitsuneLicense from '!!raw-loader!../../../../../../LICENSE';
+import { HttpClient } from '@angular/common/http';
+
+
+interface LicenseList {
+  name: string;
+  body: string;
+}
 
 @Component({
   selector: 'app-license',
@@ -9,12 +18,31 @@ import { getName } from '@tauri-apps/api/app';
   styleUrls: ['./license.component.scss']
 })
 export class LicenseComponent implements OnInit {
-  licenseText: string = txt;
-  name: string = packageJson.name;
+  licenseList: LicenseList[] = [];
 
-  constructor() { }
+  constructor(
+    private hc: HttpClient,
+  ) { }
 
   async ngOnInit() {
-    this.name = await getName();
+    let projectName = packageJson.name;
+    try {
+      projectName = await getName();
+    } catch (_) { }
+
+    this.licenseList.unshift({
+      name: projectName,
+      body: akagitsuneLicense,
+    });
+
+    this.hc.get('/3rdpartylicenses.txt', {responseType: 'text'})
+      .subscribe({
+        next: value => {
+          this.licenseList.push({
+              name: 'Angular etc (3rdpartylicenses.txt)',
+              body: value,
+            });
+        }
+      });
   }
 }
