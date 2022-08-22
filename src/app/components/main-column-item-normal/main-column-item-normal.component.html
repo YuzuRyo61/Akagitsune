@@ -15,9 +15,11 @@
                     <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.quote.user.display_name }}</a>
                     <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.quote.user.acct }}</a>
                 </div>
-                <div class="break-all text-sm w-full">
+                <div class="break-all text-sm overflow-x-scroll">
                     <div class="body-text" [innerHTML]="item.quote.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
-                    <ng-template #rawText><div class="whitespace-pre-wrap">{{ item.quote.body }}</div></ng-template>
+                    <ng-template #rawText>
+                        <div class="whitespace-pre-wrap break-all">{{ item.quote.body }}</div>
+                    </ng-template>
                 </div>
                 <div class="mt-1">
                     <div class="flex flex-row">
@@ -72,9 +74,11 @@
                     <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.user.display_name }}</a>
                     <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.user.acct }}</a>
                 </div>
-                <div class="break-all text-sm w-full">
+                <div class="break-all text-sm overflow-x-scroll">
                     <div class="body-text" [innerHTML]="item.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
-                    <ng-template #rawText><div class="whitespace-pre-wrap">{{ item.body }}</div></ng-template>
+                    <ng-template #rawText>
+                        <div class="whitespace-pre-wrap">{{ item.body }}</div>
+                    </ng-template>
                 </div>
                 <div class="mt-1">
                     <div class="flex flex-row">
