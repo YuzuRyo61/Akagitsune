@@ -7,4 +7,5 @@ export interface Statuses {
   body: string | null;
   created_at: string;
   user: User;
+  quote?: Statuses;
 }

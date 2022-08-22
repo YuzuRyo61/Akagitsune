@@ -127,7 +127,10 @@ export class MainColumnComponent implements OnInit, OnDestroy {
         timeline = this.ts.localTimeline(account, { untilId });
         break;
       case 'social':
-        if (this.account?.type === 'misskey') this.ts.socialTimeline(account, { untilId });
+        if (this.account?.type === 'misskey') timeline = this.ts.socialTimeline(account, { untilId });
+        break;
+      case 'global':
+        timeline = this.ts.globalTimeline(account, { untilId });
         break;
     }
 

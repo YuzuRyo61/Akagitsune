@@ -7,7 +7,7 @@
                 <ng-icon name="mat-share" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'social'"></ng-icon>
                 <ng-icon name="mat-public" class="text-3xl text-primary-content w-4 mx-2 inline-block" *ngSwitchCase="'global'"></ng-icon>
             </ng-container>
-            <div class="select-none inline-block max-w-full">
+            <div class="select-none inline-block max-w-full cursor-pointer" (click)="scroll.scrollToPosition(-100, 300)">
                 <h2 class="font-extrabold text-primary-content w-52 block truncate">{{ column.type | titlecase }}</h2>
                 <span class="font-light font-mono text-primary-content text-2xs truncate block w-52" [title]="acct">{{ acct }}</span>
             </div>
@@ -34,53 +34,7 @@
 
     <virtual-scroller #scroll [items]="items" [parentScroll]="scrollingBlock" [enableUnequalChildrenSizes]="true" (vsEnd)="fetchMore($event)">
         <!--  Items  -->
-        <div *ngFor="let item of viewPortItemsCast(scroll.viewPortItems)"
-            class="p-2 mx-1 border-b border-base-200 focus:bg-base-200 focus:outline-none"
-        >
-            <div class="flex flex-row">
-                <div>
-                    <a class="avatar" href="#">
-                        <div class="w-10 rounded-full">
-                            <img [src]="item.user.avatar_url" [alt]="item.user.avatar_url">
-                        </div>
-                    </a>
-                </div>
-                <div class="ml-1 flex-grow">
-                    <div>
-                        <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.user.display_name }}</a>
-                        <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.user.acct }}</a>
-                    </div>
-                    <div class="break-all text-sm w-full">
-                        <div class="body-text" [innerHTML]="item.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
-                        <ng-template #rawText><div class="whitespace-pre-wrap">{{ item.body }}</div></ng-template>
-                    </div>
-                    <div class="mt-1">
-                        <div class="flex flex-row">
-                            <div class="btn-group flex-grow">
-                                <button class="btn btn-ghost btn-xs" disabled>
-                                    <ng-icon name="mat-reply" class="text-sm"></ng-icon>
-                                </button>
-                                <button class="btn btn-ghost btn-xs" disabled>
-                                    <ng-icon name="mat-repeat" class="text-sm"></ng-icon>
-                                </button>
-                                <button class="btn btn-ghost btn-xs" *ngIf="account" disabled>
-                                    <ng-container [ngSwitch]="account.type">
-                                        <ng-icon name="mat-star" class="text-sm" *ngSwitchCase="'mastodon'"></ng-icon>
-                                        <ng-icon name="mat-add-reaction" class="text-sm" *ngSwitchCase="'misskey'"></ng-icon>
-                                    </ng-container>
-                                </button>
-                                <button class="btn btn-ghost btn-xs" disabled>
-                                    <ng-icon name="mat-more-horiz" class="text-sm"></ng-icon>
-                                </button>
-                            </div>
-                            <div>
-                                <a class="text-xs hover:underline" href="#">{{ item.created_at | date : 'short' }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-main-column-item-normal *ngFor="let item of viewPortItemsCast(scroll.viewPortItems)" [account]="account" [item]="item"></app-main-column-item-normal>
 
         <!--  Loading section  -->
         <div *ngIf="loading" class="p-2 mx-1">

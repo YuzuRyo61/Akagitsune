@@ -8,4 +8,10 @@ export interface MisskeyNote {
   cw: string | null;
   user: MisskeyUser;
   visibility: string;
+  reply?: MisskeyNote;
+  renote?: MisskeyNote;
+  emojis: {
+    name: string;
+    url: string | null;
+  }[];
 }

@@ -1,0 +1,106 @@
+<div *ngIf="item"
+     class="p-2 mx-1 border-b border-base-200 focus:bg-base-200 focus:outline-none"
+>
+    <ng-container *ngIf="item.quote; else normal">
+        <div class="flex flex-row">
+            <div>
+                <a class="avatar" href="#">
+                    <div class="w-10 rounded-full">
+                        <img [src]="item.quote.user.avatar_url" [alt]="item.quote.user.avatar_url">
+                    </div>
+                </a>
+            </div>
+            <div class="ml-1 flex-grow">
+                <div>
+                    <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.quote.user.display_name }}</a>
+                    <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.quote.user.acct }}</a>
+                </div>
+                <div class="break-all text-sm w-full">
+                    <div class="body-text" [innerHTML]="item.quote.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
+                    <ng-template #rawText><div class="whitespace-pre-wrap">{{ item.quote.body }}</div></ng-template>
+                </div>
+                <div class="mt-1">
+                    <div class="flex flex-row">
+                        <div class="btn-group flex-grow">
+                            <button class="btn btn-ghost btn-xs" disabled>
+                                <ng-icon name="mat-reply" class="text-sm"></ng-icon>
+                            </button>
+                            <button class="btn btn-ghost btn-xs" disabled>
+                                <ng-icon name="mat-repeat" class="text-sm"></ng-icon>
+                            </button>
+                            <button class="btn btn-ghost btn-xs" *ngIf="account" disabled>
+                                <ng-container [ngSwitch]="account.type">
+                                    <ng-icon name="mat-star" class="text-sm" *ngSwitchCase="'mastodon'"></ng-icon>
+                                    <ng-icon name="mat-add-reaction" class="text-sm" *ngSwitchCase="'misskey'"></ng-icon>
+                                </ng-container>
+                            </button>
+                            <button class="btn btn-ghost btn-xs" disabled>
+                                <ng-icon name="mat-more-horiz" class="text-sm"></ng-icon>
+                            </button>
+                        </div>
+                        <div>
+                            <a class="text-xs hover:underline" href="#">{{ item.created_at | date : 'short' }}</a>
+                        </div>
+                    </div>
+                </div>
+                <a class="text-sm text-accent hover:underline break-all" href="#">
+                    <ng-icon name="mat-repeat" class="text-lg"></ng-icon>
+                    <a class="avatar" href="#">
+                        <div class="w-4 rounded-full">
+                            <img [src]="item.user.avatar_url" [alt]="item.user.avatar_url">
+                        </div>
+                    </a>
+                    <span class="ml-1">
+                        <ng-container *ngIf="item.user.display_name; else noName">{{ item.user.display_name }}</ng-container>
+                        <ng-template #noName>@{{ item.user.acct }}</ng-template>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #normal>
+        <div class="flex flex-row">
+            <div>
+                <a class="avatar" href="#">
+                    <div class="w-10 rounded-full">
+                        <img [src]="item.user.avatar_url" [alt]="item.user.avatar_url">
+                    </div>
+                </a>
+            </div>
+            <div class="ml-1 flex-grow">
+                <div>
+                    <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.user.display_name }}</a>
+                    <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.user.acct }}</a>
+                </div>
+                <div class="break-all text-sm w-full">
+                    <div class="body-text" [innerHTML]="item.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
+                    <ng-template #rawText><div class="whitespace-pre-wrap">{{ item.body }}</div></ng-template>
+                </div>
+                <div class="mt-1">
+                    <div class="flex flex-row">
+                        <div class="btn-group flex-grow">
+                            <button class="btn btn-ghost btn-xs" disabled>
+                                <ng-icon name="mat-reply" class="text-sm"></ng-icon>
+                            </button>
+                            <button class="btn btn-ghost btn-xs" disabled>
+                                <ng-icon name="mat-repeat" class="text-sm"></ng-icon>
+                            </button>
+                            <button class="btn btn-ghost btn-xs" *ngIf="account" disabled>
+                                <ng-container [ngSwitch]="account.type">
+                                    <ng-icon name="mat-star" class="text-sm" *ngSwitchCase="'mastodon'"></ng-icon>
+                                    <ng-icon name="mat-add-reaction" class="text-sm" *ngSwitchCase="'misskey'"></ng-icon>
+                                </ng-container>
+                            </button>
+                            <button class="btn btn-ghost btn-xs" disabled>
+                                <ng-icon name="mat-more-horiz" class="text-sm"></ng-icon>
+                            </button>
+                        </div>
+                        <div>
+                            <a class="text-xs hover:underline" href="#">{{ item.created_at | date : 'short' }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

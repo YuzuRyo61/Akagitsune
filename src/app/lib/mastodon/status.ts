@@ -10,4 +10,5 @@ export interface MastodonStatus {
   visibility: string;
   content: string;
   account: MastodonUser;
+  reblog: MastodonStatus | null;
 }

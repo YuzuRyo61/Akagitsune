@@ -27,7 +27,7 @@ export class TimelineService {
   private parseMisskeyNote(sub: Subscriber<Statuses[]>, value: MisskeyNote[]) {
     let data: Statuses[] = [];
     value.forEach((val, _) => {
-      data.push({
+      let pushData: Statuses = {
         id: val.id,
         cw: val.cw,
         body: val.text,
@@ -38,13 +38,30 @@ export class TimelineService {
           avatar_url: val.user.avatarUrl,
           display_name: val.user.name,
         },
-      });
+      };
+
+      if (val.renote !== undefined) {
+        pushData.quote = {
+          id: val.renote.id,
+          cw: val.renote.cw,
+          body: val.renote.text,
+          created_at: val.renote.createdAt,
+          user: {
+            id: val.renote.user.id,
+            acct: (val.renote.user.host ? `${ val.renote.user.username }@${ val.renote.user.host }` : val.renote.user.username),
+            avatar_url: val.renote.user.avatarUrl,
+            display_name: val.renote.user.name,
+          },
+        };
+      }
+
+      data.push(pushData);
     });
     sub.next(data);
   }
 
   private parseMisskeyNoteStream(sub: Subscriber<Statuses>, value: MisskeyStreamEvent) {
-    sub.next({
+    let streamData: Statuses = {
       id: value.body.body.id,
       cw: value.body.body.cw,
       body: value.body.body.text,
@@ -55,7 +72,24 @@ export class TimelineService {
         display_name: value.body.body.user.name,
         avatar_url: value.body.body.user.avatarUrl,
       },
-    });
+    };
+
+    if (value.body.body.renote !== undefined) {
+      streamData.quote = {
+        id: value.body.body.renote.id,
+        cw: value.body.body.renote.cw,
+        body: value.body.body.renote.text,
+        created_at: value.body.body.renote.createdAt,
+        user: {
+          id: value.body.body.renote.user.id,
+          acct: (value.body.body.renote.user.host ? `${ value.body.body.renote.user.username }@${ value.body.body.renote.user.host }` : value.body.body.renote.user.username),
+          avatar_url: value.body.body.renote.user.avatarUrl,
+          display_name: value.body.body.renote.user.name,
+        },
+      };
+    }
+
+    sub.next(streamData);
   }
 
   private misskeyNoteTimelineSubscribe(sub: Subscriber<Statuses[]>, observer: Observable<MisskeyNote[]>) {
@@ -91,7 +125,7 @@ export class TimelineService {
   private parseMastodonStatus(sub: Subscriber<Statuses[]>, value: MastodonStatus[]) {
     let data: Statuses[] = [];
     value.forEach((val, _) => {
-      data.push({
+      let pushData: Statuses = {
         id: val.id,
         body: val.content,
         user: {
@@ -102,13 +136,30 @@ export class TimelineService {
         },
         cw: val.spoiler_text,
         created_at: val.created_at,
-      });
+      };
+
+      if (val.reblog !== null) {
+        pushData.quote = {
+          id: val.reblog.id,
+          body: val.reblog.content,
+          user: {
+            id: val.reblog.account.id,
+            acct: val.reblog.account.acct,
+            display_name: val.reblog.account.display_name,
+            avatar_url: val.reblog.account.avatar,
+          },
+          cw: val.reblog.spoiler_text,
+          created_at: val.reblog.created_at,
+        };
+      }
+
+      data.push(pushData);
     });
     sub.next(data);
   }
 
   private parseMastodonStatusStream(sub: Subscriber<Statuses>, value: MastodonStatus) {
-    sub.next({
+    let data: Statuses = {
       id: value.id,
       body: value.content,
       cw: value.spoiler_text,
@@ -119,7 +170,24 @@ export class TimelineService {
         avatar_url: value.account.avatar,
       },
       created_at: value.created_at,
-    });
+    };
+
+    if (value.reblog !== null) {
+      data.quote = {
+        id: value.reblog.id,
+        body: value.reblog.content,
+        user: {
+          id: value.reblog.account.id,
+          acct: value.reblog.account.acct,
+          display_name: value.reblog.account.display_name,
+          avatar_url: value.reblog.account.avatar,
+        },
+        cw: value.reblog.spoiler_text,
+        created_at: value.reblog.created_at,
+      };
+    }
+
+    sub.next();
   }
 
   private mastodonStatusTimelineSubscribe(sub: Subscriber<Statuses[]>, observer: Observable<MastodonStatus[]>) {
