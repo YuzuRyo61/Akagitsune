@@ -39,20 +39,20 @@
                         <div>Home</div>
                     </a>
                 </li>
-                <li class="disabled tooltip" data-tip="Now in development!">
-                    <a>
+                <li tabindex="1">
+                    <a (click)="selectColumnType('local')">
                         <ng-icon name="mat-groups" class="text-xl"></ng-icon>
                         <div>Local</div>
                     </a>
                 </li>
-                <li *ngIf="targetAccount && targetAccount.type === 'misskey'" class="disabled tooltip" data-tip="Now in development!">
-                    <a>
+                <li *ngIf="targetAccount && targetAccount.type === 'misskey'">
+                    <a (click)="selectColumnType('social')">
                         <ng-icon name="mat-share" class="text-xl"></ng-icon>
                         <div>Social</div>
                     </a>
                 </li>
-                <li class="disabled tooltip" data-tip="Now in development!">
-                    <a>
+                <li>
+                    <a (click)="selectColumnType('global')">
                         <ng-icon name="mat-public" class="text-xl"></ng-icon>
                         <div>Global</div>
                     </a>

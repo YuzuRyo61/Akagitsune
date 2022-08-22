@@ -4,7 +4,7 @@ import { AccountService } from '../../services/account.service';
 import { Account } from '../../lib/account';
 import { TimelineService } from '../../services/timeline.service';
 import { Statuses } from '../../lib/statuses';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IPageInfo } from 'ngx-virtual-scroller';
 
 
@@ -37,21 +37,45 @@ export class MainColumnComponent implements OnInit, OnDestroy {
     const account = this.acs.account.get(this.column.account);
     if (account === undefined) return;
 
+    let timeline: Observable<Statuses[]> | undefined;
+    let stream: Observable<Statuses> | undefined;
+
     switch (this.column.type) {
       case 'home':
-        this.ts.timeline(account).subscribe({
-          next: value => {
-            this.items.push(...value);
-          },
-          complete: () => {
-            this.loading = false;
-          },
-        });
-        this.streamSubscription = this.ts.stream(account).subscribe({
-          next: value => {
-            this.items.unshift(value);
-          },
-        });
+        timeline = this.ts.homeTimeline(account);
+        stream = this.ts.homeStream(account);
+        break;
+      case 'local':
+        timeline = this.ts.localTimeline(account);
+        stream = this.ts.localStream(account);
+        break;
+      case 'social':
+        timeline = this.ts.socialTimeline(account);
+        stream = this.ts.socialStream(account);
+        break;
+      case 'global':
+        timeline = this.ts.globalTimeline(account);
+        stream = this.ts.globalStream(account);
+        break;
+    }
+
+    if (timeline !== undefined) {
+      timeline.subscribe({
+        next: value => {
+          this.items = value;
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      });
+    }
+
+    if (stream !== undefined) {
+      this.streamSubscription = stream.subscribe({
+        next: value => {
+          this.items.unshift(value);
+        },
+      });
     }
   }
 
@@ -92,16 +116,30 @@ export class MainColumnComponent implements OnInit, OnDestroy {
 
     this.loading = true;
 
+    let timeline: Observable<Statuses[]> | undefined;
+    const untilId = this.items[event.endIndex].id;
+
     switch (this.column.type) {
       case 'home':
-        this.ts.timeline(account, { untilId: this.items[event.endIndex].id }).subscribe({
-          next: value => {
-            this.items = this.items.concat(value);
-          },
-          complete: () => {
-            this.loading = false;
-          },
-        });
+        timeline = this.ts.homeTimeline(account, { untilId });
+        break;
+      case 'local':
+        timeline = this.ts.localTimeline(account, { untilId });
+        break;
+      case 'social':
+        if (this.account?.type === 'misskey') this.ts.socialTimeline(account, { untilId });
+        break;
+    }
+
+    if (timeline !== undefined) {
+      timeline.subscribe({
+        next: value => {
+          this.items = this.items.concat(value);
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      });
     }
   }
 }

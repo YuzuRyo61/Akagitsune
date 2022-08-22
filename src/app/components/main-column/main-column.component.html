@@ -48,7 +48,7 @@
                 <div class="ml-1 flex-grow">
                     <div>
                         <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.user.display_name }}</a>
-                        <a class="font-light text-xs hover:underline" href="#">@{{ item.user.acct }}</a>
+                        <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.user.acct }}</a>
                     </div>
                     <div class="break-all text-sm w-full">
                         <div class="body-text" [innerHTML]="item.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>

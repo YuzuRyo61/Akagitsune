@@ -33,4 +33,8 @@ export class ColumnService {
     this._column.splice(key, 1);
     this.saveColumns();
   }
+
+  purgeColumnAccount(accountId: string) {
+    this._column = this._column.filter((value) => value.account !== accountId);
+  }
 }

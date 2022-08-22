@@ -17,6 +17,8 @@ import { MastodonAuthResponse } from '../lib/mastodon/auth';
 import { AccountProfile } from '../lib/account-profile';
 import { MisskeyUser } from '../lib/misskey/user';
 import { MastodonUser } from '../lib/mastodon/user';
+import { environment } from '../../environments/environment';
+import { ColumnService } from './column.service';
 
 
 @Injectable({
@@ -25,6 +27,7 @@ import { MastodonUser } from '../lib/mastodon/user';
 export class AccountService {
   constructor(
     private hc: HttpClient,
+    private cs: ColumnService,
   ) {
   }
   private _account: Map<string, Account> = new Map<string, Account>();
@@ -102,6 +105,7 @@ export class AccountService {
     id: string,
   ): void {
     this._account.delete(id);
+    this.cs.purgeColumnAccount(id);
     this.saveAccount();
   }
 
@@ -144,7 +148,7 @@ export class AccountService {
     return new Observable((observer) => {
       switch (type) {
         case 'misskey':
-          this.hc.post<MisskeyMeta>(`https://${ address }/api/meta`, {}, {
+          this.hc.post<MisskeyMeta>(`${ environment.httpProtocol }://${ address }/api/meta`, {}, {
             responseType: 'json',
           }).subscribe({
             next: value => {
@@ -161,7 +165,7 @@ export class AccountService {
           });
           break;
         case 'mastodon':
-          this.hc.get<MastodonInstance>(`https://${ address }/api/v1/instance`, {
+          this.hc.get<MastodonInstance>(`${ environment.httpProtocol }://${ address }/api/v1/instance`, {
             responseType: 'json',
           }).subscribe({
             next: value => {
@@ -191,7 +195,7 @@ export class AccountService {
           const sessionId = uuidV4();
           observer.next({
             url: encodeURI(
-              `https://${ address }/miauth/${ sessionId }?name=Akagitsune&permission=read:account,write:account,read:drive,write:drive,write:notes,write:notifications,write:following`,
+              `${ environment.httpProtocol }://${ address }/miauth/${ sessionId }?name=Akagitsune&permission=read:account,write:account,read:drive,write:drive,write:notes,write:notifications,write:following`,
             ),
             sessionId,
           });
@@ -209,13 +213,13 @@ export class AccountService {
             }
             observer.next({
               url: encodeURI(
-                `https://${ address }/oauth/authorize?response_type=code&client_id=${ token.client_id }&redirect_uri=${ redirectUri }&scope=${ scopes }`,
+                `${ environment.httpProtocol }://${ address }/oauth/authorize?response_type=code&client_id=${ token.client_id }&redirect_uri=${ redirectUri }&scope=${ scopes }`,
               ),
             });
             observer.complete();
           } else {
             // Issue oauth token
-            this.hc.post<MastodonApp>(`https://${ address }/api/v1/apps`, {
+            this.hc.post<MastodonApp>(`${ environment.httpProtocol }://${ address }/api/v1/apps`, {
               'client_name': 'Akagitsune',
               'redirect_uris': redirectUri,
               'scopes': scopes,
@@ -225,7 +229,7 @@ export class AccountService {
                 this.addAppToken(address, value.client_id, value.client_secret);
                 observer.next({
                   url: encodeURI(
-                    `https://${ address }/oauth/authorize?response_type=code&client_id=${ value.client_id }&redirect_uri=${ redirectUri }&scope=${ scopes }`,
+                    `${ environment.httpProtocol }://${ address }/oauth/authorize?response_type=code&client_id=${ value.client_id }&redirect_uri=${ redirectUri }&scope=${ scopes }`,
                   ),
                 });
                 observer.complete();
@@ -248,7 +252,7 @@ export class AccountService {
     return new Observable<string>((observer) => {
       switch (type) {
         case 'misskey':
-          this.hc.post<MisskeyMiAuthResponse>(`https://${ address }/api/miauth/${ data.code }/check`, {}).subscribe({
+          this.hc.post<MisskeyMiAuthResponse>(`${ environment.httpProtocol }://${ address }/api/miauth/${ data.code }/check`, {}).subscribe({
             next: value => {
               if (!value.ok) {
                 observer.error('MiAuth "ok" was response false');
@@ -278,7 +282,7 @@ export class AccountService {
             return;
           }
 
-          this.hc.post<MastodonAuthResponse>(`https://${ address }/oauth/token`, {
+          this.hc.post<MastodonAuthResponse>(`${ environment.httpProtocol }://${ address }/oauth/token`, {
             'grant_type': 'authorization_code',
             'client_id': appTokenData.client_id,
             'client_secret': appTokenData.client_secret,
@@ -307,7 +311,7 @@ export class AccountService {
     return new Observable<AccountProfile>((observer) => {
       switch (type) {
         case 'misskey':
-          this.hc.post<MisskeyUser>(`https://${address}/api/i`, {
+          this.hc.post<MisskeyUser>(`${ environment.httpProtocol }://${address}/api/i`, {
             'i': token,
           }).subscribe({
             next: value => {
@@ -326,10 +330,10 @@ export class AccountService {
           });
           break;
         case 'mastodon':
-          this.hc.get<MastodonUser>(`https://${address}/api/v1/accounts/verify_credentials`, {
+          this.hc.get<MastodonUser>(`${ environment.httpProtocol }://${address}/api/v1/accounts/verify_credentials`, {
             headers: {
               'Authorization': `Bearer ${token}`,
-            }
+            },
           }).subscribe({
             next: value => {
               observer.next({
