@@ -1,11 +1,10 @@
 <h1 class="text-3xl font-extrabold">License</h1>
 
-<div class="collapse collapse-plus border border-base-300 bg-base-200 rounded-box my-4" *ngFor="let license of licenseList">
-    <input type="checkbox" class="peer" />
-    <div class="collapse-title">
+<div *ngFor="let license of licenseList">
+    <h2 class="text-xl font-bold">
         {{ license.name }}
-    </div>
-    <div class="collapse-content">
-        <pre class="font-mono break-word text-sm whitespace-pre-wrap w-full">{{ license.body }}</pre>
-    </div>
+    </h2>
+    <a *ngIf="license.url" [href]="license.url" target="_blank" class="text-primary hover:underline">{{ license.url }}</a>
+    <pre class="font-mono break-word text-xs lg:text-sm whitespace-pre-wrap h-full mt-4">{{ license.body }}</pre>
+    <div class="divider"></div>
 </div>
