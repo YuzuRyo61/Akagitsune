@@ -11,4 +11,6 @@ export interface MastodonStatus {
   content: string;
   account: MastodonUser;
   reblog: MastodonStatus | null;
+  reblogs_count: number;
+  favourites_count: number;
 }

@@ -8,4 +8,9 @@ export interface Statuses {
   created_at: string;
   user: User;
   quote?: Statuses;
+  reaction?: {
+    [x: string]: number;
+  }
+  quoteCount: number;
+  likeCount: number;
 }

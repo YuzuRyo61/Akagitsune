@@ -38,6 +38,9 @@ export class TimelineService {
           avatar_url: val.user.avatarUrl,
           display_name: val.user.name,
         },
+        reaction: val.reactions,
+        quoteCount: val.renoteCount,
+        likeCount: 0,
       };
 
       if (val.renote !== undefined) {
@@ -52,6 +55,9 @@ export class TimelineService {
             avatar_url: val.renote.user.avatarUrl,
             display_name: val.renote.user.name,
           },
+          reaction: val.renote.reactions,
+          quoteCount: val.renote.renoteCount,
+          likeCount: 0,
         };
       }
 
@@ -72,6 +78,9 @@ export class TimelineService {
         display_name: value.body.body.user.name,
         avatar_url: value.body.body.user.avatarUrl,
       },
+      reaction: value.body.body.reactions,
+      quoteCount: value.body.body.renoteCount,
+      likeCount: 0,
     };
 
     if (value.body.body.renote !== undefined) {
@@ -86,6 +95,9 @@ export class TimelineService {
           avatar_url: value.body.body.renote.user.avatarUrl,
           display_name: value.body.body.renote.user.name,
         },
+        reaction: value.body.body.renote.reactions,
+        quoteCount: value.body.body.renote.renoteCount,
+        likeCount: 0,
       };
     }
 
@@ -136,6 +148,8 @@ export class TimelineService {
         },
         cw: val.spoiler_text,
         created_at: val.created_at,
+        quoteCount: val.reblogs_count,
+        likeCount: val.favourites_count,
       };
 
       if (val.reblog !== null) {
@@ -150,6 +164,8 @@ export class TimelineService {
           },
           cw: val.reblog.spoiler_text,
           created_at: val.reblog.created_at,
+          quoteCount: val.reblog.reblogs_count,
+          likeCount: val.reblog.favourites_count,
         };
       }
 
@@ -170,6 +186,8 @@ export class TimelineService {
         avatar_url: value.account.avatar,
       },
       created_at: value.created_at,
+      quoteCount: value.reblogs_count,
+      likeCount: value.favourites_count,
     };
 
     if (value.reblog !== null) {
@@ -184,6 +202,8 @@ export class TimelineService {
         },
         cw: value.reblog.spoiler_text,
         created_at: value.reblog.created_at,
+        quoteCount: value.reblog.reblogs_count,
+        likeCount: value.favourites_count,
       };
     }
 

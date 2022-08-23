@@ -2,7 +2,7 @@
      class="p-2 mx-1 border-b border-base-200 focus:bg-base-200 focus:outline-none"
 >
     <ng-container *ngIf="item.quote; else normal">
-        <div class="flex flex-row">
+        <div class="flex flex-row flex-nowrap">
             <div>
                 <a class="avatar" href="#">
                     <div class="w-10 rounded-full">
@@ -15,34 +15,46 @@
                     <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.quote.user.display_name }}</a>
                     <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.quote.user.acct }}</a>
                 </div>
-                <div class="break-all text-sm overflow-x-scroll">
-                    <div class="body-text" [innerHTML]="item.quote.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
-                    <ng-template #rawText>
-                        <div class="whitespace-pre-wrap break-all">{{ item.quote.body }}</div>
-                    </ng-template>
+                <div class="overflow-x-scroll">
+                    <div class="break-all text-sm">
+                        <div class="body-text" [innerHTML]="item.quote.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
+                        <ng-template #rawText>
+                            <div class="whitespace-pre-wrap">{{ item.quote.body }}</div>
+                        </ng-template>
+                    </div>
+                    <div class="mt-1" *ngIf="item.quote.reaction">
+                        <div class="flex flex-row flex-wrap gap-1">
+                            <button class="btn btn-xs" *ngFor="let reaction of item.quote.reaction | keyvalue">
+                                <span class="max-w-[5rem] overflow-x-hidden truncate">
+                                    {{ reaction.key }}
+                                </span>
+                                <div class="badge badge-xs">{{ reaction.value }}</div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="mt-1">
-                    <div class="flex flex-row">
-                        <div class="btn-group flex-grow">
-                            <button class="btn btn-ghost btn-xs" disabled>
-                                <ng-icon name="mat-reply" class="text-sm"></ng-icon>
-                            </button>
-                            <button class="btn btn-ghost btn-xs" disabled>
-                                <ng-icon name="mat-repeat" class="text-sm"></ng-icon>
-                            </button>
-                            <button class="btn btn-ghost btn-xs" *ngIf="account" disabled>
-                                <ng-container [ngSwitch]="account.type">
-                                    <ng-icon name="mat-star" class="text-sm" *ngSwitchCase="'mastodon'"></ng-icon>
-                                    <ng-icon name="mat-add-reaction" class="text-sm" *ngSwitchCase="'misskey'"></ng-icon>
-                                </ng-container>
-                            </button>
-                            <button class="btn btn-ghost btn-xs" disabled>
-                                <ng-icon name="mat-more-horiz" class="text-sm"></ng-icon>
-                            </button>
-                        </div>
-                        <div>
-                            <a class="text-xs hover:underline" href="#">{{ item.created_at | date : 'short' }}</a>
-                        </div>
+                    <div>
+                        <a class="text-xs hover:underline font-mono" href="#">{{ item.quote.created_at | date : 'yyyy/M/d HH:mm' }}</a>
+                    </div>
+                    <div class="btn-group flex-grow">
+                        <button class="btn btn-ghost btn-xs" disabled>
+                            <ng-icon name="mat-reply" class="text-sm"></ng-icon>
+                        </button>
+                        <button class="btn btn-ghost btn-xs" disabled>
+                            <ng-icon name="mat-repeat" class="text-sm"></ng-icon>
+                            <div class="badge badge-xs" *ngIf="item.quote.quoteCount > 0">{{ item.quote.quoteCount }}</div>
+                        </button>
+                        <button class="btn btn-ghost btn-xs" *ngIf="account" disabled>
+                            <ng-container [ngSwitch]="account.type">
+                                <ng-icon name="mat-star" class="text-sm" *ngSwitchCase="'mastodon'"></ng-icon>
+                                <ng-icon name="mat-add-reaction" class="text-sm" *ngSwitchCase="'misskey'"></ng-icon>
+                            </ng-container>
+                            <div class="badge badge-xs" *ngIf="item.quote.likeCount > 0">{{ item.quote.likeCount }}</div>
+                        </button>
+                        <button class="btn btn-ghost btn-xs" disabled>
+                            <ng-icon name="mat-more-horiz" class="text-sm"></ng-icon>
+                        </button>
                     </div>
                 </div>
                 <a class="text-sm text-accent hover:underline break-all" href="#">
@@ -74,34 +86,46 @@
                     <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.user.display_name }}</a>
                     <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.user.acct }}</a>
                 </div>
-                <div class="break-all text-sm overflow-x-scroll">
-                    <div class="body-text" [innerHTML]="item.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
-                    <ng-template #rawText>
-                        <div class="whitespace-pre-wrap">{{ item.body }}</div>
-                    </ng-template>
+                <div class="overflow-x-scroll">
+                    <div class="break-all text-sm">
+                        <div class="body-text" [innerHTML]="item.body" *ngIf="account && account.type === 'mastodon'; else rawText"></div>
+                        <ng-template #rawText>
+                            <div class="whitespace-pre-wrap">{{ item.body }}</div>
+                        </ng-template>
+                    </div>
+                    <div class="mt-1" *ngIf="item.reaction">
+                        <div class="flex flex-row flex-wrap gap-1">
+                            <button class="btn btn-xs" *ngFor="let reaction of item.reaction | keyvalue">
+                                <span class="max-w-[5rem] overflow-x-hidden truncate">
+                                    {{ reaction.key }}
+                                </span>
+                                <div class="badge badge-xs">{{ reaction.value }}</div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="mt-1">
-                    <div class="flex flex-row">
-                        <div class="btn-group flex-grow">
-                            <button class="btn btn-ghost btn-xs" disabled>
-                                <ng-icon name="mat-reply" class="text-sm"></ng-icon>
-                            </button>
-                            <button class="btn btn-ghost btn-xs" disabled>
-                                <ng-icon name="mat-repeat" class="text-sm"></ng-icon>
-                            </button>
-                            <button class="btn btn-ghost btn-xs" *ngIf="account" disabled>
-                                <ng-container [ngSwitch]="account.type">
-                                    <ng-icon name="mat-star" class="text-sm" *ngSwitchCase="'mastodon'"></ng-icon>
-                                    <ng-icon name="mat-add-reaction" class="text-sm" *ngSwitchCase="'misskey'"></ng-icon>
-                                </ng-container>
-                            </button>
-                            <button class="btn btn-ghost btn-xs" disabled>
-                                <ng-icon name="mat-more-horiz" class="text-sm"></ng-icon>
-                            </button>
-                        </div>
-                        <div>
-                            <a class="text-xs hover:underline" href="#">{{ item.created_at | date : 'short' }}</a>
-                        </div>
+                    <div>
+                        <a class="text-xs hover:underline font-mono" href="#">{{ item.created_at | date : 'yyyy/M/d HH:mm' }}</a>
+                    </div>
+                    <div class="btn-group flex-grow">
+                        <button class="btn btn-ghost btn-xs" disabled>
+                            <ng-icon name="mat-reply" class="text-sm"></ng-icon>
+                        </button>
+                        <button class="btn btn-ghost btn-xs" disabled>
+                            <ng-icon name="mat-repeat" class="text-sm"></ng-icon>
+                            <div class="badge badge-xs" *ngIf="item.quoteCount > 0">{{ item.quoteCount }}</div>
+                        </button>
+                        <button class="btn btn-ghost btn-xs" *ngIf="account" disabled>
+                            <ng-container [ngSwitch]="account.type">
+                                <ng-icon name="mat-star" class="text-sm" *ngSwitchCase="'mastodon'"></ng-icon>
+                                <ng-icon name="mat-add-reaction" class="text-sm" *ngSwitchCase="'misskey'"></ng-icon>
+                            </ng-container>
+                            <div class="badge badge-xs" *ngIf="item.likeCount > 0">{{ item.likeCount }}</div>
+                        </button>
+                        <button class="btn btn-ghost btn-xs" disabled>
+                            <ng-icon name="mat-more-horiz" class="text-sm"></ng-icon>
+                        </button>
                     </div>
                 </div>
             </div>

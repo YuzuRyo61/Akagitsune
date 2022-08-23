@@ -14,4 +14,9 @@ export interface MisskeyNote {
     name: string;
     url: string | null;
   }[];
+  reactions?: {
+    [x: string]: number;
+  }
+  renoteCount: number;
+  repliesCount: number;
 }
