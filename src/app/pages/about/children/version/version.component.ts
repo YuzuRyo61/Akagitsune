@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Version, VERSION } from '@angular/core';
 import { getName, getTauriVersion, getVersion } from '@tauri-apps/api/app';
 import packageJson from '../../../../../../package.json';
 
@@ -11,6 +11,7 @@ export class VersionComponent implements OnInit {
   name: string = packageJson.name;
   version: string = packageJson.version;
   tauriVersion: string = '(Unknown)';
+  angularVersion: Version = VERSION;
 
   constructor() { }
 
