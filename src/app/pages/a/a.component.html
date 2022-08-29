@@ -1,0 +1,12 @@
+<ng-container *ngIf="account; else unknownAccount">
+    <router-outlet></router-outlet>
+</ng-container>
+
+<ng-template #unknownAccount>
+    <div class="alert alert-error shadow-lg">
+        <div>
+            <ng-icon name="mat-error" class="text-lg"></ng-icon>
+            <span>Unknown account.</span>
+        </div>
+    </div>
+</ng-template>

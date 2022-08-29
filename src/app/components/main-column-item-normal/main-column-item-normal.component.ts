@@ -10,6 +10,7 @@ import { Account } from '../../lib/account';
 export class MainColumnItemNormalComponent {
   @Input() item?: Statuses;
   @Input() account?: Account;
+  @Input() accountId?: string;
 
   constructor() { }
 

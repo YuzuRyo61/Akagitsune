@@ -4,7 +4,7 @@
     <ng-container *ngIf="item.quote; else normal">
         <div class="flex flex-row flex-nowrap">
             <div>
-                <a class="avatar" href="#">
+                <a class="avatar" [routerLink]="['/a', accountId, 'user', item.quote.user.id]">
                     <div class="w-10 rounded-full">
                         <img [src]="item.quote.user.avatar_url" [alt]="item.quote.user.avatar_url">
                     </div>
@@ -12,8 +12,8 @@
             </div>
             <div class="ml-1 flex-grow">
                 <div>
-                    <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.quote.user.display_name }}</a>
-                    <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.quote.user.acct }}</a>
+                    <a class="font-bold mr-1 break-all hover:underline" [routerLink]="['/a', accountId, 'user', item.quote.user.id]">{{ item.quote.user.display_name }}</a>
+                    <a class="font-light text-xs hover:underline break-all font-mono" [routerLink]="['/a', accountId, 'user', item.quote.user.id]">@{{ item.quote.user.acct }}</a>
                 </div>
                 <div class="overflow-x-scroll">
                     <div class="break-all text-sm">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="mt-1">
                     <div>
-                        <a class="text-xs hover:underline font-mono" href="#">{{ item.quote.created_at | date : 'yyyy/M/d HH:mm' }}</a>
+                        <a class="text-xs hover:underline font-mono" [routerLink]="['/a', accountId, 'post', item.quote.id]">{{ item.quote.created_at | date : 'yyyy/M/d HH:mm' }}</a>
                     </div>
                     <div class="btn-group flex-grow">
                         <button class="btn btn-ghost btn-xs" disabled>
@@ -57,13 +57,13 @@
                         </button>
                     </div>
                 </div>
-                <a class="text-sm text-accent hover:underline break-all" href="#">
+                <a class="text-sm text-accent hover:underline break-all" [routerLink]="['/a', accountId, 'user', item.user.id]">
                     <ng-icon name="mat-repeat" class="text-lg"></ng-icon>
-                    <a class="avatar" href="#">
+                    <div class="avatar">
                         <div class="w-4 rounded-full">
                             <img [src]="item.user.avatar_url" [alt]="item.user.avatar_url">
                         </div>
-                    </a>
+                    </div>
                     <span class="ml-1">
                         <ng-container *ngIf="item.user.display_name; else noName">{{ item.user.display_name }}</ng-container>
                         <ng-template #noName>@{{ item.user.acct }}</ng-template>
@@ -75,7 +75,7 @@
     <ng-template #normal>
         <div class="flex flex-row">
             <div>
-                <a class="avatar" href="#">
+                <a class="avatar" [routerLink]="['/a', accountId, 'user', item.user.id]">
                     <div class="w-10 rounded-full">
                         <img [src]="item.user.avatar_url" [alt]="item.user.avatar_url">
                     </div>
@@ -83,8 +83,8 @@
             </div>
             <div class="ml-1 flex-grow">
                 <div>
-                    <a class="font-bold mr-1 break-all hover:underline" href="#">{{ item.user.display_name }}</a>
-                    <a class="font-light text-xs hover:underline break-all font-mono" href="#">@{{ item.user.acct }}</a>
+                    <a class="font-bold mr-1 break-all hover:underline" [routerLink]="['/a', accountId, 'user', item.user.id]">{{ item.user.display_name }}</a>
+                    <a class="font-light text-xs hover:underline break-all font-mono" [routerLink]="['/a', accountId, 'user', item.user.id]">@{{ item.user.acct }}</a>
                 </div>
                 <div class="overflow-x-scroll">
                     <div class="break-all text-sm">
@@ -106,7 +106,7 @@
                 </div>
                 <div class="mt-1">
                     <div>
-                        <a class="text-xs hover:underline font-mono" href="#">{{ item.created_at | date : 'yyyy/M/d HH:mm' }}</a>
+                        <a class="text-xs hover:underline font-mono" [routerLink]="['/a', accountId, 'post', item.id]">{{ item.created_at | date : 'yyyy/M/d HH:mm' }}</a>
                     </div>
                     <div class="btn-group flex-grow">
                         <button class="btn btn-ghost btn-xs" disabled>

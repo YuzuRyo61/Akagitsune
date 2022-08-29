@@ -34,7 +34,7 @@
 
     <virtual-scroller #scroll [items]="items" [parentScroll]="scrollingBlock" [enableUnequalChildrenSizes]="true" (vsEnd)="fetchMore($event)">
         <!--  Items  -->
-        <app-main-column-item-normal *ngFor="let item of viewPortItemsCast(scroll.viewPortItems)" [account]="account" [item]="item"></app-main-column-item-normal>
+        <app-main-column-item-normal *ngFor="let item of viewPortItemsCast(scroll.viewPortItems)" [account]="account" [accountId]="column.account" [item]="item"></app-main-column-item-normal>
 
         <!--  Loading section  -->
         <div *ngIf="loading" class="p-2 mx-1">
