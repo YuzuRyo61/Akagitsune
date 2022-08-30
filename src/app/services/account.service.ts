@@ -378,6 +378,9 @@ export class AccountService {
                 banner_url: value.bannerUrl,
                 description: value.description,
                 bot: value.isBot,
+                post_count: value.notesCount,
+                follower_count: value.followersCount,
+                following_count: value.followingCount,
               });
             },
             error: err => sub.error(err),
@@ -399,7 +402,10 @@ export class AccountService {
                 avatar_url: value.avatar,
                 banner_url: value.header,
                 description: value.note,
-                bot: value.bot
+                bot: value.bot,
+                post_count: value.statuses_count,
+                following_count: value.following_count,
+                follower_count: value.followers_count,
               });
             },
             error: err => sub.error(err),

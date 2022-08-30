@@ -7,4 +7,7 @@ export interface MastodonUser {
   header: string;
   bot?: boolean;
   note: string;
+  statuses_count: number;
+  followers_count: number;
+  following_count: number;
 }

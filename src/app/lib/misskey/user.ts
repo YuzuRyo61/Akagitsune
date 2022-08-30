@@ -9,4 +9,7 @@ export interface MisskeyUser {
   description: string | null;
   isAdmin: boolean;
   isModerator: boolean;
+  followersCount: number;
+  followingCount: number;
+  notesCount: number;
 }
