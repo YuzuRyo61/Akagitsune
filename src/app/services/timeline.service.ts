@@ -207,7 +207,7 @@ export class TimelineService {
       };
     }
 
-    sub.next();
+    sub.next(data);
   }
 
   private mastodonStatusTimelineSubscribe(sub: Subscriber<Statuses[]>, observer: Observable<MastodonStatus[]>) {
