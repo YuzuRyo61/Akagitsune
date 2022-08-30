@@ -5,5 +5,6 @@ export interface MastodonUser {
   avatar: string;
   acct: string;
   header: string;
-  bot: boolean;
+  bot?: boolean;
+  note: string;
 }

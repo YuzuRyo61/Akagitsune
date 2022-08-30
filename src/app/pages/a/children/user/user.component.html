@@ -1,0 +1,26 @@
+<div *ngIf="user === undefined && !error">
+    Loading
+</div>
+
+<div class="hero min-h-12" style="background-size: cover;" [ngStyle]="{ 'background-image': user.banner_url ? 'url(' + user.banner_url + ')' : '' }" *ngIf="user && !error">
+    <div class="hero-overlay bg-opacity-60"></div>
+    <div class="hero-content text-center text-neutral-content">
+        <div class="max-w-lg">
+            <div class="avatar">
+                <div class="w-20 rounded-full">
+                    <img [src]="user.avatar_url" alt="@{{ user.acct }}" />
+                </div>
+            </div>
+            <h1 class="mb-2 text-3xl font-bold">{{ user.display_name }}</h1>
+            <div class="mb-5">
+                <span class="font-mono">@{{ user.acct }}</span>
+                <span class="ml-2" *ngIf="user.bot">
+                    <ng-icon name="mat-smart-toy" class="text-xl"></ng-icon>
+                </span>
+            </div>
+            <div class="whitespace-pre-wrap">
+                {{ user.description }}
+            </div>
+        </div>
+    </div>
+</div>

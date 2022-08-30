@@ -6,4 +6,7 @@ export interface MisskeyUser {
   avatarUrl: string | null;
   bannerUrl: string | null;
   isBot: boolean;
+  description: string | null;
+  isAdmin: boolean;
+  isModerator: boolean;
 }

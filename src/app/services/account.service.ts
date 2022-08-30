@@ -19,6 +19,7 @@ import { MisskeyUser } from '../lib/misskey/user';
 import { MastodonUser } from '../lib/mastodon/user';
 import { environment } from '../../environments/environment';
 import { ColumnService } from './column.service';
+import { User } from '../lib/user';
 
 
 @Injectable({
@@ -338,7 +339,7 @@ export class AccountService {
             next: value => {
               observer.next({
                 username: value.username,
-                is_bot: value.bot,
+                is_bot: (value.bot === undefined) ? false : value.bot,
                 display_name: value.display_name,
                 banner_url: value.header,
                 avatar_url: value.avatar,
@@ -352,5 +353,59 @@ export class AccountService {
           break;
       }
     });
+  }
+
+  getUser(
+    accountId: string,
+    userId: string,
+  ): Observable<User> | undefined {
+    const account = this.account.get(accountId);
+    if (account === undefined) return;
+
+    switch (account.type) {
+      case 'misskey':
+        return new Observable<User>(sub => {
+          this.hc.post<MisskeyUser>(`${ environment.httpProtocol }://${ account.address }/api/users/show`, {
+            'i': account.token,
+            'userId': userId,
+          }).subscribe({
+            next: value => {
+              sub.next({
+                id: value.id,
+                acct: (value.host ? `${ value.username }@${ value.host }` : value.username),
+                display_name: value.name,
+                avatar_url: value.avatarUrl,
+                banner_url: value.bannerUrl,
+                description: value.description,
+                bot: value.isBot,
+              });
+            },
+            error: err => sub.error(err),
+            complete: () => sub.complete(),
+          });
+        });
+      case 'mastodon':
+        return new Observable<User>(sub => {
+          this.hc.get<MastodonUser>(`${ environment.httpProtocol }://${ account.address }/api/v1/accounts/${ userId }`, {
+            headers: {
+              'Authorization': `Bearer ${ account.token }`,
+            },
+          }).subscribe({
+            next: value => {
+              sub.next({
+                id: value.id,
+                acct: value.acct,
+                display_name: value.display_name,
+                avatar_url: value.avatar,
+                banner_url: value.header,
+                description: value.note,
+                bot: value.bot
+              });
+            },
+            error: err => sub.error(err),
+            complete: () => sub.complete(),
+          });
+        });
+    }
   }
 }

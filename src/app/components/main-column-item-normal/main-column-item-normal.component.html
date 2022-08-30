@@ -24,7 +24,7 @@
                     </div>
                     <div class="mt-1" *ngIf="item.quote.reaction">
                         <div class="flex flex-row flex-wrap gap-1">
-                            <button class="btn btn-xs" *ngFor="let reaction of item.quote.reaction | keyvalue">
+                            <button class="btn btn-xs" *ngFor="let reaction of item.quote.reaction | keyvalue" [title]="reaction.key">
                                 <span class="max-w-[5rem] overflow-x-hidden truncate">
                                     {{ reaction.key }}
                                 </span>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="mt-1" *ngIf="item.reaction">
                         <div class="flex flex-row flex-wrap gap-1">
-                            <button class="btn btn-xs" *ngFor="let reaction of item.reaction | keyvalue">
+                            <button class="btn btn-xs" *ngFor="let reaction of item.reaction | keyvalue" [title]="reaction.key">
                                 <span class="max-w-[5rem] overflow-x-hidden truncate">
                                     {{ reaction.key }}
                                 </span>

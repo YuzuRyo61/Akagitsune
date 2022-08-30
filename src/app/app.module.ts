@@ -29,6 +29,7 @@ import {
   MatStar,
   MatAddReaction,
   MatMoreHoriz,
+  MatSmartToy,
 } from '@ng-icons/material-icons/baseline';
 import { FormsModule } from '@angular/forms';
 import { HotkeyModule } from 'angular2-hotkeys';
@@ -72,6 +73,7 @@ import { TimelineService } from './services/timeline.service';
       MatStar,
       MatAddReaction,
       MatMoreHoriz,
+      MatSmartToy,
     }),
     FormsModule,
     HotkeyModule.forRoot({}),

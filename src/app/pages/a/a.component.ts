@@ -18,7 +18,7 @@ export class AComponent implements OnInit {
   }
 
   ngOnInit() {
-    const accountId = this.route.snapshot.paramMap.get('id');
+    const accountId = this.route.snapshot.paramMap.get('accountId');
     if (accountId === null) return;
     this.account = this.acs.account.get(accountId);
   }
